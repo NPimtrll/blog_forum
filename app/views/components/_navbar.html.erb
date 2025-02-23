@@ -1,0 +1,15 @@
+<nav class="fixed top-0 left-0 w-full bg-white shadow-md z-10">
+  <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+    <%= link_to "Blog Forum", root_path, class: "text-xl font-bold text-blue-600 hover:text-blue-500" %>
+
+    <div class="space-x-4">
+      <%= link_to "Home", root_path, class: "text-gray-700 hover:text-blue-500 font-medium" %>
+        <% if user_signed_in? %>
+        <p>ยินดีต้อนรับ, <%= current_user.email %>!</p>
+        <%= button_to "ออกจากระบบ", destroy_user_session_path, method: :delete, class: "text-red-500" %>
+        <% else %>
+        <%= link_to "เข้าสู่ระบบ", new_user_session_path, class: "text-blue-500" %>
+        <% end %>
+    </div>
+  </div>
+</nav>
