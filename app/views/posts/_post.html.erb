@@ -1,4 +1,4 @@
-<div id="<%= dom_id post %>" class="my-5 space-y-5">
+<div id="<%= dom_id post %>" class="my-5 space-y-5 border-b pb-5">
   <div>
     <strong class="block font-medium mb-1">Title:</strong>
     <%= post.title %>
@@ -10,5 +10,21 @@
   <div>
     <strong class="block font-medium mb-1">User:</strong>
     <%= post.user.email %> 
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Categories:</strong>
+    <% post.categories.each do |category| %>
+      <span class="inline-block bg-blue-100 text-blue-600 px-2 py-1 rounded-md text-sm"><%= category.name %></span>
+    <% end %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Tags:</strong>
+    <% post.tags.each do |tag| %>
+      <span class="inline-block bg-gray-100 text-gray-600 px-2 py-1 rounded-md text-sm">#<%= tag.name %></span>
+    <% end %>
+  </div>
+  <div>
+    <strong class="block font-medium mb-1">Views:</strong>
+    <span class="text-gray-500"><%= post.views %> views</span>
   </div>
 </div>
