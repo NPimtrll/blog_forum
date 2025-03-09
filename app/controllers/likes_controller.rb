@@ -1,14 +1,17 @@
 class LikesController < ApplicationController
+  before_action :authenticate_user!
   def create
     @post = Post.find(params[:post_id])
-    existing_like = @post.likes.find_by(user: current_user)
+    like = @post.likes.find_or_initialize_by(user: current_user)
 
-    if existing_like
-      existing_like.destroy
+    if like.persisted?
+      like.destroy
+      message = "You unliked this post."
     else
-      @post.likes.create(user: current_user)
+      like.save
+      message = "You liked this post."
     end
 
-    redirect_to @post, notice: "You liked this post."
+    redirect_to @post, notice: message
   end
 end

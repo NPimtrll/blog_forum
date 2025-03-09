@@ -1,15 +1,16 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [ :index, :show ]
-
+  before_action :authorize_post_owner, only: [ :edit, :update, :destroy ]
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    # @posts = Post.all
+    @posts = Post.includes(:user, :comments, :likes).order(created_at: :desc)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post = Post.find(params[:id])
+    @post = Post.includes(:comments, :likes).find(params[:id])
     @post.increment!(:views)
   end
 
@@ -61,6 +62,9 @@ class PostsController < ApplicationController
   end
 
   private
+    def authorize_post_owner
+      redirect_to root_path, alert: "You are not authorized to modify this post." unless @post.user == current_user
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params.expect(:id))
