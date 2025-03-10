@@ -19,11 +19,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_081142) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "post_id", null: false
-    t.string "user"
+    t.integer "user_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -32,6 +33,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_081142) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_likes_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
@@ -81,6 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_25_081142) do
   end
 
   add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "post_categories", "categories"
