@@ -28,15 +28,20 @@
 
   <h2>Comments</h2>
 
-<% @post.comments.each do |comment| %>
-  <div class="border p-2 my-2">
-    <p><strong><%= comment.user.email %>:</strong> <%= comment.content %></p>
-    <% if comment.user == current_user %>
-      <%= link_to "Edit", edit_post_comment_path(@post, comment), class: "text-blue-500" %> |
-      <%= link_to "Delete", post_comment_path(@post, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500" %>
-    <% end %>
-  </div>
+<% if @post.comments.any? %>
+  <% @post.comments.each do |comment| %>
+    <div class="border p-2 my-2">
+      <p><strong><%= comment.user.email %>:</strong> <%= comment.content %></p>
+      <% if comment.user == current_user %>
+        <%= link_to "Edit", edit_post_comment_path(@post, comment), class: "text-blue-500" %>
+        <%= link_to "Delete", post_comment_path(@post, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500" %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-gray-500">No comments yet.</p>
 <% end %>
+
 
   <h3>Add a comment:</h3>
   <%= form_with model: [@post, @post.comments.new], local: true do |form| %>

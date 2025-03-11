@@ -20,6 +20,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
+    @post = @comment.post
   end
 
   # POST /comments or /comments.json
@@ -59,7 +60,8 @@ class CommentsController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = @post.comments.find(params[:id])
+      @comment = Comment.find_by(id: params[:id], post_id: @post.id)
+      redirect_to @post, alert: "Comment not found" if @comment.nil?
     end
 
     def authorize_comment_owner
