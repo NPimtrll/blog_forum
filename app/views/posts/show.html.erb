@@ -6,15 +6,22 @@
   <% end %>
 
   <h1 class="font-bold text-4xl">Showing post</h1>
+  <p class="text-gray-500 text-sm mb-2">
+    Published on <%= @post.created_at.strftime("%B %d, %Y") %>
+  </p>
 
   <%= render @post %>
+
+<div class="flex items-center space-x-4">
   <% if @post.likes.exists?(user: current_user) %>
     <%= button_to "👎 Unlike", post_likes_path(@post), method: :post, class: "bg-red-500 text-white px-2 py-1 rounded" %>
   <% else %>
     <%= button_to "👍 Like", post_likes_path(@post), method: :post, class: "bg-green-500 text-white px-2 py-1 rounded" %>
   <% end %>
 
-  <p>ไลค์: <%= @post.likes.count %></p>
+  <span class="text-gray-700">ไลค์: <%= @post.likes.count %> | คอมเมนต์: <%= @post.comments.count %></span>
+</div>
+
 
 <p>แชร์กระทู้:</p>
 <a href="https://www.facebook.com/sharer/sharer.php?u=<%= request.original_url %>" target="_blank" class="text-blue-600">Facebook</a>
@@ -26,21 +33,28 @@
     <%= button_to "Destroy this post", @post, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
   </div>
 
-  <h2>Comments</h2>
+  <h2 class="font-semibold text-xl">
+    Comments (<span class="text-blue-500"><%= @post.comments.count %></span>)
+  </h2>
+
 
 <% if @post.comments.any? %>
   <% @post.comments.each do |comment| %>
-    <div class="border p-2 my-2">
+    <div class="border p-2 my-2 relative">
       <p><strong><%= comment.user.email %>:</strong> <%= comment.content %></p>
+      <span class="absolute top-2 right-2 text-gray-500 text-sm">
+        <%= time_ago_in_words(comment.created_at) %> ago
+      </span>
       <% if comment.user == current_user %>
-        <%= link_to "Edit", edit_post_comment_path(@post, comment), class: "text-blue-500" %>
-        <%= link_to "Delete", post_comment_path(@post, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500" %>
+        <%= button_to "Edit", edit_post_comment_path(@post, comment), method: :get, class: "rounded-md" %>
+        <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
       <% end %>
     </div>
   <% end %>
 <% else %>
   <p class="text-gray-500">No comments yet.</p>
 <% end %>
+
 
 
   <h3>Add a comment:</h3>
