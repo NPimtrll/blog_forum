@@ -1,0 +1,24 @@
+<h2>แก้ไขโปรไฟล์</h2>
+
+<%= form_with(model: @user, local: true) do |form| %>
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email, disabled: true %>
+  </div>
+
+  <div>
+    <%= form.label :avatar, "อัปโหลดรูปโปรไฟล์" %>
+    <%= form.file_field :avatar %>
+  </div>
+
+  <% if @user.avatar.attached? %>
+    <div>
+      <p>รูปปัจจุบัน:</p>
+      <%= image_tag @user.avatar.variant(resize_to_limit: [150, 150]) %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit "บันทึกการเปลี่ยนแปลง" %>
+  </div>
+<% end %>
