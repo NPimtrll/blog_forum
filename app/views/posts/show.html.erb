@@ -49,11 +49,12 @@
 <% @post.comments.each do |comment| %>
   <div class="border p-2 my-2 flex items-start space-x-3">
     <!-- Profile Image -->
-    <% if comment.user.avatar.attached? %>
-      <%= image_tag url_for(comment.user.avatar), class: "w-8 h-8 rounded-full border-2 border-gray-400" %>
+    <% if current_user && current_user.avatar.attached? %>
+      <%= image_tag url_for(current_user.avatar), class: "w-8 h-8 rounded-full border-2 border-gray-400" %>
     <% else %>
       <%= image_tag "default-avatar.png", class: "w-8 h-8 rounded-full border-2 border-gray-400" %>
     <% end %>
+
 
     <div class="flex-1">
       <p class="text-gray-700 font-semibold"><%= comment.user.email %></p>
@@ -75,11 +76,12 @@
 <%= form_with model: [@post, @post.comments.new], local: true do |form| %>
   <div class="flex items-center space-x-3 mb-4">
     <!-- Profile Image -->
-    <% if current_user.avatar.attached? %>
+    <% if current_user && current_user.avatar.attached? %>
       <%= image_tag url_for(current_user.avatar), class: "w-8 h-8 rounded-full border-2 border-gray-400" %>
     <% else %>
       <%= image_tag "default-avatar.png", class: "w-8 h-8 rounded-full border-2 border-gray-400" %>
     <% end %>
+
 
     <div class="flex-1">
       <%= form.text_area :content, class: "border w-full p-2" %>
