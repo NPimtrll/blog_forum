@@ -1,9 +1,37 @@
-<h1><%= @user.email %></h1>
+<div class="max-w-md mx-auto p-6">
+  <h1 class="text-3xl font-bold text-center mb-4"><%= @user.email %></h1>
 
-<% if @user.avatar.attached? %>
-  <%= image_tag url_for(@user.avatar), class: "w-32 h-32 rounded-full" %>
-<% else %>
-  <p>ไม่มีรูปโปรไฟล์</p>
-<% end %>
+  <% if @user.avatar.attached? %>
+    <div class="flex justify-center mb-4">
+      <%= image_tag url_for(@user.avatar), class: "w-32 h-32 rounded-full border-4 border-gray-300" %>
+    </div>
+  <% else %>
+    <p class="text-center text-gray-600">ไม่มีรูปโปรไฟล์</p>
+  <% end %>
 
-<%= link_to "แก้ไขโปรไฟล์", edit_user_path(@user) %>
+  <div class="mt-4">
+    <p class="text-xl font-semibold text-center">ชื่อเต็ม:</p>
+    <p class="text-lg text-gray-700 text-center"><%= @user.full_name %></p>
+  </div>
+
+  <div class="mt-4">
+    <p class="text-xl font-semibold text-center">ชื่อผู้ใช้:</p>
+    <p class="text-lg text-gray-700 text-center"><%= @user.username %></p>
+  </div>
+
+  <div class="mt-4">
+    <p class="text-xl font-semibold text-center">เกี่ยวกับฉัน:</p>
+    <p class="text-lg text-gray-700 text-center"><%= @user.about_me.present? ? @user.about_me : "ไม่มีข้อมูล" %></p>
+  </div>
+
+  <h3 class="text-2xl font-bold mt-6 text-center">ลิงก์โซเชียลมีเดีย</h3>
+  <ul class="list-disc pl-8 mt-4 text-center">
+    <li><strong>Twitter:</strong> <%= @user.twitter_url.present? ? link_to(@user.twitter_url, @user.twitter_url, target: "_blank", class: "text-blue-500 hover:underline") : "ไม่มีลิงก์" %></li>
+    <li><strong>LinkedIn:</strong> <%= @user.linkedin_url.present? ? link_to(@user.linkedin_url, @user.linkedin_url, target: "_blank", class: "text-blue-500 hover:underline") : "ไม่มีลิงก์" %></li>
+    <li><strong>GitHub:</strong> <%= @user.github_url.present? ? link_to(@user.github_url, @user.github_url, target: "_blank", class: "text-blue-500 hover:underline") : "ไม่มีลิงก์" %></li>
+  </ul>
+
+  <div class="text-center mt-6">
+    <%= link_to "แก้ไขโปรไฟล์", edit_user_path(@user), class: "text-blue-500 hover:underline text-lg" %>
+  </div>
+</div>
