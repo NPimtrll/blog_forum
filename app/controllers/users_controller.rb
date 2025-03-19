@@ -6,10 +6,17 @@ class UsersController < ApplicationController
   end
 
   def edit
+    # ตรวจสอบว่าผู้ใช้กำลังแก้ไขโปรไฟล์ตัวเอง
+    unless @user == current_user
+      redirect_to root_path, alert: "คุณไม่มีสิทธิ์แก้ไขโปรไฟล์ของผู้ใช้อื่น"
+    end
   end
 
   def update
-    if @user.update(user_params)
+    # ป้องกันไม่ให้ผู้ใช้แก้ไข email โดยตรง
+    filtered_params = user_params.except(:email)
+
+    if @user.update(filtered_params)
       redirect_to @user, notice: "อัปเดตโปรไฟล์สำเร็จ!"
     else
       render :edit, status: :unprocessable_entity
@@ -23,6 +30,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :avatar)
+    params.require(:user).permit(:username, :avatar, :about_me,
+                                 :twitter_url, :linkedin_url, :github_url,
+                                 :email_notifications, :profile_privacy)
   end
 end
