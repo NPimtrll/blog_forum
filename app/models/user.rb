@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true, length: { minimum: 3, maximum: 20 }
   validates :username, format: { with: /\A[a-zA-Z0-9_]+\z/, message: "ใช้ได้แค่ตัวอักษร ตัวเลข และ _" }
 
-  validates :full_name, presence: true, length: { maximum: 100 }
+  validates :full_name, presence: true, length: { maximum: 100 }, allow_blank: true
 
   validates :twitter_url, :linkedin_url, :github_url, format: URI.regexp(%w[http https]), allow_blank: true
   validates :about_me, length: { maximum: 500 }
