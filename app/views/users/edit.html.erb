@@ -99,7 +99,7 @@
               <button type="button" @click="enabled = !enabled" 
                 :class="enabled ? 'bg-blue-500' : 'bg-gray-300'"
                 class="relative w-12 h-6 rounded-full transition-colors">
-                <span :class="enabled ? 'translate-x-6' : 'translate-x-0'"
+                <span :class="enabled ? 'translate-x-[24px]' : 'translate-x-0'"
                   class="absolute left-0 top-0 w-6 h-6 bg-white rounded-full shadow transition-transform"></span>
               </button>
               <input type="hidden" name="user[email_notifications]" :value="enabled">
@@ -115,7 +115,7 @@
               <button type="button" @click="enabled = !enabled" 
                 :class="enabled ? 'bg-blue-500' : 'bg-gray-300'"
                 class="relative w-12 h-6 rounded-full transition-colors">
-                <span :class="enabled ? 'translate-x-6' : 'translate-x-0'"
+                <span :class="enabled ? 'translate-x-[24px]' : 'translate-x-0'"
                   class="absolute left-0 top-0 w-6 h-6 bg-white rounded-full shadow transition-transform"></span>
               </button>
               <input type="hidden" name="user[profile_privacy]" :value="enabled">
@@ -132,8 +132,4 @@
       </div>
     <% end %>
   </div>
-
-
-<script defer src="https://cdn.tailwindcss.com"></script>
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
