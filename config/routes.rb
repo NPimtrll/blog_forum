@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post "tinymce_assets", to: "tinymce_assets#create"
   devise_for :users
   resources :users, only: [ :show, :edit, :update ]
   resources :posts do

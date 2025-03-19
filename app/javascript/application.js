@@ -2,3 +2,8 @@
 import "@rails/ujs"
 import "@hotwired/turbo-rails"
 import "controllers"
+import "trix"
+import "@rails/actiontext"
+
+// TinyMCE
+import "tinymce"
