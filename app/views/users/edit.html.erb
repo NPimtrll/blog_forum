@@ -1,102 +1,139 @@
-<h2 class="text-2xl font-bold text-center mb-6">แก้ไขโปรไฟล์</h2>
+  <div class="max-w-3xl mx-auto px-4">
+    <h1 class="text-2xl font-bold mb-8">Profile Settings</h1>
 
-<%= form_with(model: @user, local: true, html: { class: "w-full max-w-md mx-auto bg-white p-6 rounded-lg shadow-md" }) do |form| %>
-
-  <!-- Full Name -->
-  <div class="mb-4">
-    <%= form.label :full_name, "Full name", class: "block text-gray-700 font-semibold mb-2" %>
-    <%= form.text_field :full_name, class: "w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-  </div>
-
-  <!-- Email -->
-  <div class="mb-4">
-    <%= form.label :email, class: "block text-gray-700 font-semibold mb-2" %>
-    <%= form.text_field :email, disabled: true, class: "w-full p-2 border rounded-lg bg-gray-100 cursor-not-allowed" %>
-  </div>
-
-  <!-- Username -->
-  <div class="mb-4">
-    <%= form.label :username, class: "block text-gray-700 font-semibold mb-2" %>
-    <%= form.text_field :username, class: "w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-  </div>
-
-  <!-- About Me -->
-  <div class="mb-4">
-    <%= form.label :about_me, "เกี่ยวกับฉัน", class: "block text-gray-700 font-semibold mb-2" %>
-    <%= form.text_area :about_me, class: "w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-  </div>
-
-  <!-- Social Media Links -->
-  <h3 class="font-bold">ลิงก์โซเชียลมีเดีย</h3>
-  <div class="mb-4">
-    <%= form.label :twitter_url, "Twitter", class: "block text-gray-700 font-semibold" %>
-    <%= form.text_field :twitter_url, class: "w-full p-2 border rounded-lg" %>
-
-    <%= form.label :linkedin_url, "LinkedIn", class: "block text-gray-700 font-semibold mt-2" %>
-    <%= form.text_field :linkedin_url, class: "w-full p-2 border rounded-lg" %>
-
-    <%= form.label :github_url, "GitHub", class: "block text-gray-700 font-semibold mt-2" %>
-    <%= form.text_field :github_url, class: "w-full p-2 border rounded-lg" %>
-  </div>
-
-  <!-- Avatar Upload -->
-  <div class="mb-4">
-    <%= form.label :avatar, "อัปโหลดรูปโปรไฟล์", class: "block text-gray-700 font-semibold mb-2" %>
-    <%= form.file_field :avatar, class: "w-full p-2 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400" %>
-  </div>
-
-  <!-- Current Avatar Preview -->
-  <% if @user.avatar.attached? %>
-      <div class="flex justify-center mb-4">
-        <%= image_tag url_for(@user.avatar), class: "w-32 h-32 rounded-full border-4 border-gray-300" %>
+    <%= form_with(model: @user, local: true) do |form| %>
+      <!-- Profile Picture -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6" x-data="{ avatarUrl: '<%= @user.avatar.attached? ? url_for(@user.avatar) : '' %>' }">
+        <h2 class="text-lg font-semibold mb-4">Profile Picture</h2>
+        <div class="flex items-start space-x-4">
+          <div class="relative">
+            <template x-if="avatarUrl">
+              <img :src="avatarUrl" class="w-16 h-16 rounded-full object-cover" id="avatar-preview">
+            </template>
+            <template x-if="!avatarUrl">
+              <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+                <span class="text-gray-400">No Photo</span>
+              </div>
+            </template>
+          </div>
+          <div class="flex-1">
+            <%= form.file_field :avatar, class: "hidden", id: "avatar-upload", accept: "image/jpeg,image/png", 
+              onchange: "let reader = new FileReader(); reader.onload = e => { document.querySelector('[x-data]').__x.$data.avatarUrl = e.target.result }; reader.readAsDataURL(this.files[0]);" %>
+            <div class="flex space-x-2">
+              <button type="button" onclick="document.getElementById('avatar-upload').click()" 
+                class="bg-blue-500 text-white px-4 py-2 text-sm font-medium rounded hover:bg-blue-600 transition-colors">
+                Upload New Photo
+              </button>
+              <button type="button" @click="avatarUrl = ''" 
+                class="border border-gray-300 text-gray-700 px-4 py-2 text-sm font-medium rounded hover:bg-gray-50 transition-colors">
+                Remove
+              </button>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">Supported formats: JPG, PNG. Max file size: 5MB</p>
+          </div>
+        </div>
       </div>
-    <% else %>
-      <p class="text-center text-gray-600">ไม่มีรูปโปรไฟล์</p>
+
+      <!-- Basic Information -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
+        <div class="space-y-4">
+          <div>
+            <%= form.label :full_name, "Full Name", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= form.text_field :full_name, class: "w-full px-3 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+          <div>
+            <%= form.label :email, "Email Address", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= form.email_field :email, disabled: true, class: "w-full px-3 py-2 border border-gray-200 rounded bg-gray-50 text-gray-500" %>
+          </div>
+          <div>
+            <%= form.label :username, "Username", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= form.text_field :username, class: "w-full px-3 py-2 border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500" %>
+          </div>
+        </div>
+      </div>
+
+           <!-- Social Media Links -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">Social Media Links</h2>
+        <div class="space-y-4">
+          <div>
+            <div class="flex items-center">
+              <span class="text-gray-500 mr-3">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+              </span>
+              <%= form.text_field :twitter_url, placeholder: "Twitter URL", class: "flex-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center">
+              <span class="text-gray-500 mr-3">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </span>
+              <%= form.text_field :linkedin_url, placeholder: "LinkedIn URL", class: "flex-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center">
+              <span class="text-gray-500 mr-3">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </span>
+              <%= form.text_field :github_url, placeholder: "GitHub URL", class: "flex-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Settings -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">Account Settings</h2>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-medium">Email Notifications</h3>
+              <p class="text-sm text-gray-500">Receive email notifications about account activity</p>
+            </div>
+            <div x-data="{ enabled: <%= @user.email_notifications? %> }">
+              <button type="button" @click="enabled = !enabled" 
+                :class="enabled ? 'bg-blue-500' : 'bg-gray-300'"
+                class="relative w-12 h-6 rounded-full transition-colors">
+                <span :class="enabled ? 'translate-x-6' : 'translate-x-0'"
+                  class="absolute left-0 top-0 w-6 h-6 bg-white rounded-full shadow transition-transform"></span>
+              </button>
+              <input type="hidden" name="user[email_notifications]" :value="enabled">
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-medium">Profile Privacy</h3>
+              <p class="text-sm text-gray-500">Make your profile visible to everyone</p>
+            </div>
+            <div x-data="{ enabled: <%= @user.profile_privacy? %> }">
+              <button type="button" @click="enabled = !enabled" 
+                :class="enabled ? 'bg-blue-500' : 'bg-gray-300'"
+                class="relative w-12 h-6 rounded-full transition-colors">
+                <span :class="enabled ? 'translate-x-6' : 'translate-x-0'"
+                  class="absolute left-0 top-0 w-6 h-6 bg-white rounded-full shadow transition-transform"></span>
+              </button>
+              <input type="hidden" name="user[profile_privacy]" :value="enabled">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Form Actions -->
+      <div class="flex items-center justify-between">
+        <%= form.submit "Save Changes", class: "bg-blue-500 text-white px-6 py-2 rounded font-medium hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" %>
+        <button type="button" class="text-gray-600 hover:text-gray-800 font-medium">Cancel</button>
+      </div>
     <% end %>
-
-  <!-- Toggle Switches -->
-  <h3 class="font-bold">ตั้งค่าบัญชี</h3>
-  <div class="mb-4 flex items-center">
-    <%= form.check_box :email_notifications, class: "mr-2" %>
-    <%= form.label :email_notifications, "รับการแจ้งเตือนทางอีเมล", class: "text-gray-700" %>
   </div>
 
-  <div class="mb-4 flex items-center">
-    <%= form.check_box :profile_privacy, class: "mr-2" %>
-    <%= form.label :profile_privacy, "เปิดโปรไฟล์เป็นสาธารณะ", class: "text-gray-700" %>
-  </div>
 
-  <!-- Submit Button -->
-  <div class="mt-6">
-    <%= form.submit "บันทึกการเปลี่ยนแปลง", class: "w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200 border border-black" %>
-  </div>
+<script defer src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<% end %>
-
-<!-- Delete Account Button -->
-<%# <div class="mt-6 text-center">
-  <button class="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200" onclick="confirmDelete()">ลบบัญชี</button>
-</div>
-
-<!-- Confirm Delete Modal -->
-<div id="deleteModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-  <div class="bg-white p-6 rounded-lg shadow-lg">
-    <h3 class="text-xl font-semibold mb-4">คุณแน่ใจหรือไม่ว่าต้องการลบบัญชี?</h3>
-    <p class="text-gray-600 mb-4">การลบนี้ไม่สามารถย้อนกลับได้</p>
-    <div class="flex justify-end">
-      <button class="mr-2 bg-gray-500 text-white py-2 px-4 rounded-lg" onclick="closeModal()">ยกเลิก</button>
-      <%= button_to "ลบบัญชี", user_path(@user), method: :delete, data: { confirm: "แน่ใจหรือไม่?" }, class: "bg-red-500 text-white py-2 px-4 rounded-lg" %>
-    <%# </div>
-  </div>
-</div> %>
-
-<!-- JavaScript -->
-<%# <script>
-  function confirmDelete() {
-    document.getElementById("deleteModal").classList.remove("hidden");
-  }
-
-  function closeModal() {
-    document.getElementById("deleteModal").classList.add("hidden");
-  }
-</script> %>
