@@ -1,0 +1,23 @@
+toolbar:
+  - undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat
+plugins:
+  - advlist
+  - autolink
+  - lists
+  - link
+  - image
+  - charmap
+  - preview
+  - anchor
+  - searchreplace
+  - visualblocks
+  - code
+  - fullscreen
+  - insertdatetime
+  - media
+  - table
+  - help
+  - wordcount
+height: 500
+menubar: file edit view insert format tools table help
+content_style: "body { font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif; font-size: 14px; }"
