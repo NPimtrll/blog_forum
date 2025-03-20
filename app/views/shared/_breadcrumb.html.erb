@@ -1,11 +1,21 @@
 <nav class="flex items-center text-gray-600 text-sm mb-4">
   <% if !local_assigns[:post] %>
-    <span class="text-gray-800">Home</span>
+    <%= link_to "Home", root_path, class: "hover:text-blue-600" %>
+    <% if current_page?(new_post_path) %>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800">New Article</span>
+    <% end %>
   <% else %>
     <%= link_to "Home", root_path, class: "hover:text-blue-600" %>
     <% if post.category.present? %>
       <span class="mx-2">/</span>
-      <span class="text-gray-800"><%= post.category.name %></span>
+      <%= link_to post.category.name, posts_path(category: post.category.id), class: "hover:text-blue-600" %>
+    <% end %>
+    <span class="mx-2">/</span>
+    <%= link_to post.title, post_path(post), class: "hover:text-blue-600" %>
+    <% if current_page?(edit_post_path(post)) %>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800">Edit</span>
     <% end %>
   <% end %>
 </nav> 
