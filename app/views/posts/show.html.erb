@@ -1,7 +1,7 @@
 <% content_for :title, @post.title %>
 
 <div class="max-w-4xl mx-auto px-4">
-  <div class="flex items-center justify-between mb-4">
+  <div class="flex items-center justify-between mb-1">
     <%= render "shared/breadcrumb", post: @post %>
     <% if @post.user == current_user %>
       <div class="flex items-center space-x-1">
@@ -41,6 +41,8 @@
     <time class="text-gray-500 text-sm"><%= @post.created_at.strftime("%B %d, %Y") %></time>
   </div>
 
+
+  <div class="border-t border-gray-200 my-6"></div>
   <div class="prose mb-8">
     <%= sanitize @post.content %>
   </div>
