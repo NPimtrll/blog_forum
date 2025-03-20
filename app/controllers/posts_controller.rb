@@ -31,9 +31,6 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        # สร้าง post_category หลังจากบันทึก post สำเร็จ
-        PostCategory.create(post: @post, category_id: params[:post][:category_id]) if params[:post][:category_id].present?
-
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -48,10 +45,6 @@ class PostsController < ApplicationController
     @categories = Category.all
     respond_to do |format|
       if @post.update(post_params)
-        # อัพเดท post_category
-        @post.post_category&.destroy
-        PostCategory.create(post: @post, category_id: params[:post][:category_id]) if params[:post][:category_id].present?
-
         format.html { redirect_to @post, notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else

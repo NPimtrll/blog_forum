@@ -20,6 +20,11 @@
   </div>
 
   <div class="mt-4">
+    <p class="text-xl font-semibold text-center">บทบาท:</p>
+    <p class="text-lg text-gray-700 text-center"><%= @user.role.present? ? @user.role : "ไม่ได้กำหนด" %></p>
+  </div>
+
+  <div class="mt-4">
     <p class="text-xl font-semibold text-center">เกี่ยวกับฉัน:</p>
     <p class="text-lg text-gray-700 text-center"><%= @user.about_me.present? ? @user.about_me : "ไม่มีข้อมูล" %></p>
   </div>
