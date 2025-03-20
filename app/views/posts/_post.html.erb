@@ -5,7 +5,11 @@
   </div>
   <div>
     <strong class="block font-medium mb-1">Content:</strong>
-    <%= sanitize post.content %>
+    <div class="prose prose-lg max-w-none">
+      <div class="tinymce-content">
+        <%= sanitize post.content %>
+      </div>
+    </div>
   </div>
   <div>
     <strong class="block font-medium mb-1">User:</strong>

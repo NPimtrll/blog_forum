@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_19_103823) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_20_023801) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -105,6 +105,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_19_103823) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "views", default: 0, null: false
+    t.text "excerpt"
   end
 
   create_table "tags", force: :cascade do |t|
