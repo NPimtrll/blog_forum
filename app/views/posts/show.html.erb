@@ -41,7 +41,7 @@
     <time class="text-gray-500 text-sm"><%= @post.created_at.strftime("%B %d, %Y") %></time>
   </div>
 
-  <div class="prose prose-lg max-w-none mb-8">
+  <div class="prose mb-8">
     <%= sanitize @post.content %>
   </div>
 
