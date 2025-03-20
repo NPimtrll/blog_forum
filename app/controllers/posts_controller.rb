@@ -4,31 +4,36 @@ class PostsController < ApplicationController
   before_action :authorize_post_owner, only: [ :edit, :update, :destroy ]
   # GET /posts or /posts.json
   def index
-    # @posts = Post.all
-    @posts = Post.includes(:user, :comments, :likes).order(created_at: :desc)
+    @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post = Post.includes(:comments, :likes).find(params[:id])
+    @post = Post.includes(:comments, :likes, :category).find(params[:id])
     @post.increment!(:views)
   end
 
   # GET /posts/new
   def new
     @post = Post.new
+    @categories = Category.all
   end
 
   # GET /posts/1/edit
   def edit
+    @categories = Category.all
   end
 
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    @categories = Category.all
 
     respond_to do |format|
       if @post.save
+        # สร้าง post_category หลังจากบันทึก post สำเร็จ
+        PostCategory.create(post: @post, category_id: params[:post][:category_id]) if params[:post][:category_id].present?
+
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -40,8 +45,13 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    @categories = Category.all
     respond_to do |format|
       if @post.update(post_params)
+        # อัพเดท post_category
+        @post.post_category&.destroy
+        PostCategory.create(post: @post, category_id: params[:post][:category_id]) if params[:post][:category_id].present?
+
         format.html { redirect_to @post, notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -72,6 +82,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :excerpt, :cover_image).merge(user_id: current_user.id)
+      params.require(:post).permit(:title, :content, :excerpt, :cover_image, :category_id).merge(user_id: current_user.id)
     end
 end
