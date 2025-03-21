@@ -3,14 +3,18 @@
     <!-- ส่วนหัว (Header) -->
     <div class="bg-white rounded-lg shadow-md overflow-hidden mb-4">
       <div class="flex items-center p-6 border-b border-gray-200">
-        <%= image_tag url_for(@user.avatar), class: "w-20 h-20 rounded-full mr-4" if @user.avatar.attached? %>
+        <% if @user.avatar.attached? %>
+          <%= image_tag url_for(@user.avatar), class: "w-20 h-20 rounded-full mr-4" %>
+        <% else %>
+          <%= image_tag "default-avatar.png", class: "w-20 h-20 rounded-full mr-4" %>
+        <% end %>
         <div class="flex-grow">
           <div class="flex justify-between items-center">
             <div class="flex flex-col">
-              <h1 class="text-2xl font-semibold mr-2"><%= @user.full_name || @user.email %></h1>
-              <p class="text-gray-500"><%= @user.role.present? ? @user.role : "ไม่ได้กำหนด" %></p>
+              <h1 class="text-2xl font-semibold mr-2"><%= @user.full_name.presence || @user.username %></h1>
+              <p class="text-gray-500"><%= @user.role.present? ? @user.role : "ไม่ได้กำหนดบทบาท" %></p>
             </div>
-           <div class="flex items-center space-x-2">
+          <div class="flex items-center space-x-2">
             <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full flex items-center">
               <i class="fas fa-user-plus mr-2"></i> Follow
             </button>
@@ -20,7 +24,7 @@
           </div>
           </div>
           <div class="mt-2">
-            <p class="text-gray-700"><%= @user.about_me.present? ? @user.about_me : "ไม่มีข้อมูล" %></p>
+            <p class="text-gray-700"><%= @user.about_me.present? ? @user.about_me : "ยังไม่ได้เพิ่มคำโปรย" %></p>
           </div>
           <div class="flex space-x-5 mt-4">
             <% twitter_url = @user.twitter_url.presence || "https://twitter.com" %>
