@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [ :edit, :update ]
 
   def show
+    @posts_count = @user.posts.count
+    @total_views = @user.posts.sum(:views)
+    @all_posts = @user.posts.order(created_at: :desc)
   end
 
   def edit
