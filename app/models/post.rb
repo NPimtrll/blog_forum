@@ -11,13 +11,4 @@ class Post < ApplicationRecord
   validates :content, presence: true
   validates :excerpt, length: { maximum: 200 }, allow_blank: true
   validates :category, presence: true
-
-  private
-
-  def update_category
-    if category_id.present?
-      post_category&.destroy
-      PostCategory.create(post: self, category_id: category_id)
-    end
-  end
 end

@@ -55,6 +55,43 @@
     </div>
   </div>
 
+  <div class="mb-6" x-data="{
+      tags: <%= post.tags.map(&:name).to_json %>,
+      input: ''
+    }"
+    x-init="console.log(tags)"
+  >
+    <%= form.label :tags, "Tags*", class: "block text-sm font-medium mb-2" %>
+    
+    <div class="relative">
+      <input type="text" 
+        x-model="input"
+        @keydown.enter.prevent="if(input.trim() !== '') { tags.push(input.trim()); input = ''; }"
+        @keydown.comma.prevent="if(input.trim() !== '') { tags.push(input.trim()); input = ''; }"
+        id="tags-input"
+        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        placeholder="Enter tags, separated by commas"
+      />
+
+      <ul class="mt-2">
+        <template x-for="(tag, index) in tags" :key="index">
+          <li class="inline-block bg-blue-100 text-blue-600 rounded-full py-1 px-3 mr-2 mb-2 text-sm">
+            <span x-text="tag"></span>
+            <button type="button" @click="tags.splice(index, 1)" class="ml-2 text-blue-500 hover:text-blue-700">x</button>
+          </li>
+        </template>
+      </ul>
+
+      <template x-for="tag in tags" :key="tag">
+        <input type="hidden" name="post[tag_names][]" :value="tag">
+      </template>
+    </div>
+    
+    <p class="text-sm text-gray-500 mt-2">Separate tags with commas. Press Enter to add a new tag.</p>
+  </div>
+
+
+
   <div class="mb-6">
     <%= form.label :content, "Content*", class: "block text-sm font-medium mb-2" %>
     <%= form.text_area :content, class: "tinymce block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", data: { controller: "tinymce" } %>

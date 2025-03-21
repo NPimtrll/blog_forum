@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :comments, only: [ :create, :edit, :update, :destroy ]
   end
 
+  get "/tags/find_or_create", to: "tags#find_or_create"
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "posts#index"

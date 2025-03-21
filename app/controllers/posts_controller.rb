@@ -26,11 +26,12 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params.except(:tag_names))
     @categories = Category.all
 
     respond_to do |format|
       if @post.save
+        update_tags(@post, params[:post][:tag_names]) if params[:post][:tag_names].present?
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -40,11 +41,13 @@ class PostsController < ApplicationController
     end
   end
 
+
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
     @categories = Category.all
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.update(post_params.except(:tag_names))
+        update_tags(@post, params[:post][:tag_names]) if params[:post][:tag_names].present?
         format.html { redirect_to @post, notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -75,6 +78,10 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :excerpt, :cover_image, :category_id).merge(user_id: current_user.id)
+      params.require(:post).permit(:title, :content, :excerpt, :cover_image, :category_id, tag_names: []).merge(user_id: current_user.id)
+    end
+
+    def update_tags(post, tag_names)
+      post.tags = tag_names.map { |name| Tag.find_or_create_by(name: name.strip) }
     end
 end
