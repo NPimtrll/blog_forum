@@ -14,6 +14,9 @@
  *= require_self
  *= require tinymce_content
  */
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+
 
 /* Content Styles */
 .prose {
