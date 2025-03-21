@@ -28,9 +28,13 @@
   <div class="flex items-center space-x-3 mb-6">
     <div class="flex items-center">
       <% if @post.user.avatar.attached? %>
-        <%= image_tag url_for(@post.user.avatar), class: "w-10 h-10 rounded-full border-2 border-gray-200" %>
+        <%= link_to user_path(@post.user) do %>
+          <%= image_tag url_for(@post.user.avatar), class: "w-10 h-10 rounded-full border-2 border-gray-200" %>
+        <% end %>
       <% else %>
-        <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full border-2 border-gray-200" %>
+        <%= link_to user_path(@post.user) do %>
+          <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full border-2 border-gray-200" %>
+        <% end %>
       <% end %>
       <div class="ml-3">
         <p class="font-medium text-blue-600"><%= @post.user.username %></p>
@@ -40,6 +44,7 @@
     <span class="text-gray-300">•</span>
     <time class="text-gray-500 text-sm"><%= @post.created_at.strftime("%B %d, %Y") %></time>
   </div>
+
 
 
   <div class="border-t border-gray-200 my-6"></div>
@@ -54,7 +59,6 @@
       </span>
     <% end %>
   </div>
-
 
   <div class="border-t border-b border-gray-200 py-4">
     <div class="flex items-center justify-between max-w-4xl mx-auto">
@@ -110,39 +114,42 @@
     </div>
   </div>
 
-
   <div class="border-t pt-8">
     <h2 class="text-2xl font-bold mb-6">Comments (<%= @post.comments.count %>)</h2>
 
-    <div class="space-y-6 mb-8">
-      <% @post.comments.each do |comment| %>
-        <div class="flex space-x-4">
-          <% if comment.user.avatar.attached? %>
+  <div class="space-y-6 mb-8">
+    <% @post.comments.each do |comment| %>
+      <div class="flex space-x-4">
+        <% if comment.user.avatar.attached? %>
+          <%= link_to user_path(comment.user) do %>
             <%= image_tag url_for(comment.user.avatar), class: "w-10 h-10 rounded-full" %>
-          <% else %>
+          <% end %>
+        <% else %>
+          <%= link_to user_path(comment.user) do %>
             <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full" %>
           <% end %>
+        <% end %>
 
-          <div class="flex-grow">
-            <div class="bg-gray-50 rounded-lg p-4">
-              <div class="flex items-center justify-between mb-2">
-                <div>
-                  <span class="font-medium text-gray-900"><%= comment.user.username %></span>
-                  <span class="text-gray-500 text-sm ml-2"><%= time_ago_in_words(comment.created_at) %> ago</span>
-                </div>
-                <% if comment.user == current_user %>
-                  <div class="flex items-center space-x-2">
-                    <%= button_to "Edit", edit_post_comment_path(@post, comment), method: :get, class: "text-sm text-gray-500 hover:text-gray-700" %>
-                    <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, class: "text-sm text-red-500 hover:text-red-700", data: { confirm: "Are you sure?" } %>
-                  </div>
-                <% end %>
+        <div class="flex-grow">
+          <div class="bg-gray-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <span class="font-medium text-gray-900"><%= comment.user.username %></span>
+                <span class="text-gray-500 text-sm ml-2"><%= time_ago_in_words(comment.created_at) %> ago</span>
               </div>
-              <p class="text-gray-700"><%= comment.content %></p>
+              <% if comment.user == current_user %>
+                <div class="flex items-center space-x-2">
+                  <%= button_to "Edit", edit_post_comment_path(@post, comment), method: :get, class: "text-sm text-gray-500 hover:text-gray-700" %>
+                  <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, class: "text-sm text-red-500 hover:text-red-700", data: { confirm: "Are you sure?" } %>
+                </div>
+              <% end %>
             </div>
+            <p class="text-gray-700"><%= comment.content %></p>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
+  </div>
 
     <div class="bg-gray-50 rounded-lg p-6">
       <h3 class="text-lg font-semibold mb-4">Add a comment</h3>
