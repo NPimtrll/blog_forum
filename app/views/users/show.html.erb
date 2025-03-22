@@ -170,20 +170,6 @@
   </div>
 </div>
 
-<div class="flex items-center space-x-2" x-data="{ following: <%= current_user.following.include?(@user).to_json %> }" data-testid="follow-buttons">
-  <button 
-    class="py-2 px-4 rounded-full flex items-center font-semibold"
-    :class="following ? 'bg-gray-400 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'"
-    @click="toggleFollow"
-    data-testid="follow-button"
-  >
-    <i :class="following ? 'fas fa-user-minus mr-2' : 'fas fa-user-plus mr-2'" data-testid="follow-icon"></i>
-    <span x-text="following ? 'Unfollow' : 'Follow'" data-testid="follow-text"></span>
-  </button>
 
-  <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center" data-testid="message-button">
-    <i class="fas fa-envelope mr-2"></i> Message
-  </button>
-</div>
 
 
