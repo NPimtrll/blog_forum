@@ -1,74 +1,57 @@
-<div class="bg-gray-100 min-h-screen">
+<div class="bg-gray-100 min-h-screen" data-testid="user-profile-page">
   <div class="max-w-6xl mx-auto p-8">
     <!-- ส่วนหัว (Header) -->
-    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-4">
-      <div class="flex items-center p-6 border-b border-gray-200">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-4" data-testid="user-header">
+      <div class="flex items-center p-6 border-b border-gray-200" data-testid="user-header-content">
         <% if @user.avatar.attached? %>
-          <%= image_tag url_for(@user.avatar), class: "w-20 h-20 rounded-full mr-4", alt: "User Avatar" %>
+          <%= image_tag url_for(@user.avatar), class: "w-20 h-20 rounded-full mr-4", alt: "User Avatar", data: { testid: "user-avatar" } %>
         <% else %>
-          <%= image_tag "default-avatar.png", class: "w-20 h-20 rounded-full mr-4", alt: "Default Avatar" %>
+          <%= image_tag "default-avatar.png", class: "w-20 h-20 rounded-full mr-4", alt: "Default Avatar", data: { testid: "default-avatar" } %>
         <% end %>
-        <div class="flex-grow">
+        <div class="flex-grow" data-testid="user-info">
           <div class="flex justify-between items-center">
             <div class="flex flex-col">
-              <h1 class="text-2xl font-semibold mr-2"><%= @user.full_name.presence || @user.username %></h1>
-              <p class="text-gray-500"><%= @user.role.present? ? @user.role : "ไม่ได้กำหนดบทบาท" %></p>
+              <h1 class="text-2xl font-semibold mr-2" data-testid="user-fullname"><%= @user.full_name.presence || @user.username %></h1>
+              <p class="text-gray-500" data-testid="user-role"><%= @user.role.present? ? @user.role : "ไม่ได้กำหนดบทบาท" %></p>
             </div>
-            <div class="flex items-center space-x-2" x-data="{ following: <%= current_user.following.include?(@user).to_json %> }">
+            <div class="flex items-center space-x-2" x-data="{ following: <%= current_user.following.include?(@user).to_json %> }" data-testid="follow-buttons">
               <button 
                 class="py-2 px-4 rounded-full flex items-center font-semibold"
                 :class="following ? 'bg-gray-400 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'"
                 @click="toggleFollow"
+                data-testid="follow-button"
               >
-                <i :class="following ? 'fas fa-user-minus mr-2' : 'fas fa-user-plus mr-2'"></i>
-                <span x-text="following ? 'Unfollow' : 'Follow'"></span>
+                <i :class="following ? 'fas fa-user-minus mr-2' : 'fas fa-user-plus mr-2'" data-testid="follow-icon"></i>
+                <span x-text="following ? 'Unfollow' : 'Follow'" data-testid="follow-text"></span>
               </button>
 
-              <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center">
+              <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center" data-testid="message-button">
                 <i class="fas fa-envelope mr-2"></i> Message
               </button>
-
-              <script>
-                function toggleFollow() {
-                  fetch("<%= follow_path %>", {
-                    method: this.following ? "DELETE" : "POST",
-                    headers: {
-                      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
-                      "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ following_id: <%= @user.id %> })
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                    this.following = !this.following;
-                  })
-                  .catch(error => console.error("Error:", error));
-                }
-              </script>
             </div>
           </div>
 
           <div class="mt-2">
-            <p class="text-gray-700"><%= @user.about_me.present? ? @user.about_me : "ยังไม่ได้เพิ่มคำโปรย" %></p>
+            <p class="text-gray-700" data-testid="user-about-me"><%= @user.about_me.present? ? @user.about_me : "ยังไม่ได้เพิ่มคำโปรย" %></p>
           </div>
-          
-          <div class="flex space-x-5 mt-4">
+
+          <div class="flex space-x-5 mt-4" data-testid="social-links">
             <% twitter_url = @user.twitter_url.presence || "https://twitter.com" %>
-            <a href="<%= twitter_url %>" target="_blank" class="text-blue-500 hover:text-blue-700">
+            <a href="<%= twitter_url %>" target="_blank" class="text-blue-500 hover:text-blue-700" data-testid="twitter-link">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
               </svg>
             </a>
 
             <% linkedin_url = @user.linkedin_url.presence || "https://linkedin.com" %>
-            <a href="<%= linkedin_url %>" target="_blank" class="text-blue-600 hover:text-blue-800">
+            <a href="<%= linkedin_url %>" target="_blank" class="text-blue-600 hover:text-blue-800" data-testid="linkedin-link">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
             </a>
 
             <% github_url = @user.github_url.presence || "https://github.com" %>
-            <a href="<%= github_url %>" target="_blank" class="text-gray-900 hover:text-gray-700">
+            <a href="<%= github_url %>" target="_blank" class="text-gray-900 hover:text-gray-700" data-testid="github-link">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.26.82-.577v-2.234c-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.76-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.467-2.382 1.235-3.222-.123-.303-.535-1.527.117-3.176 0 0 1.008-.322 3.3 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.296-1.23 3.296-1.23.653 1.649.241 2.873.118 3.176.77.84 1.233 1.912 1.233 3.222 0 4.61-2.804 5.62-5.475 5.92.43.372.814 1.102.814 2.222v3.293c0 .32.218.694.825.576C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12z"/>
               </svg>
@@ -80,42 +63,39 @@
 
 
     <!-- ส่วนสถิติ (Statistics) -->
-    <div class="flex justify-around space-x-4">
-      <div class="border rounded-lg bg-white p-4 text-center w-1/4">
-        <p class="text-lg font-semibold">
+    <div class="flex justify-around space-x-4" data-testid="statistics-section">
+      <div class="border rounded-lg bg-white p-4 text-center w-1/4" data-testid="articles-stat">
+        <p class="text-lg font-semibold" data-testid="articles-count">
           <%= number_to_human(@posts_count, units: { thousand: "K", million: "M", billion: "B" }) %>
         </p>
-        <p class="text-sm text-gray-500">Articles</p>
+        <p class="text-sm text-gray-500" data-testid="articles-label">Articles</p>
       </div>
-      <div class="border rounded-lg bg-white p-4 text-center w-1/4">
-        <p class="text-lg font-semibold">
+      <div class="border rounded-lg bg-white p-4 text-center w-1/4" data-testid="followers-stat">
+        <p class="text-lg font-semibold" data-testid="followers-count">
           <%= number_to_human(@user.followers.count, units: { thousand: "K", million: "M", billion: "B" }) %>
         </p>
-        <p class="text-sm text-gray-500">Followers</p>
+        <p class="text-sm text-gray-500" data-testid="followers-label">Followers</p>
       </div>
-            <div class="border rounded-lg bg-white p-4 text-center w-1/4">
-        <p class="text-lg font-semibold">
+      <div class="border rounded-lg bg-white p-4 text-center w-1/4" data-testid="following-stat">
+        <p class="text-lg font-semibold" data-testid="following-count">
           <%= number_to_human(@user.following.count, units: { thousand: "K", million: "M", billion: "B" }) %>
         </p>
-        <p class="text-sm text-gray-500">Following</p>
+        <p class="text-sm text-gray-500" data-testid="following-label">Following</p>
       </div>
-      <div class="border rounded-lg bg-white p-4 text-center w-1/4">
-        <p class="text-lg font-semibold">
+      <div class="border rounded-lg bg-white p-4 text-center w-1/4" data-testid="views-stat">
+        <p class="text-lg font-semibold" data-testid="views-count">
           <%= number_to_human(@total_views, units: { thousand: "K", million: "M", billion: "B" }) %>
         </p>
-        <p class="text-sm text-gray-500">Views</p>
+        <p class="text-sm text-gray-500" data-testid="views-label">Views</p>
       </div>
     </div>
 
 
-
-
-
     <!-- ส่วนบทความล่าสุด (Latest Articles) -->
-    <div class="flex justify-between items-center mb-4 mt-5">
-      <h2 class="text-xl font-semibold">Latest Articles</h2>
-      <select class="border rounded-md p-1 text-sm text-gray-600">
-        <option>Newest First</option>
+    <div class="flex justify-between items-center mb-4 mt-5" data-testid="latest-articles-header">
+      <h2 class="text-xl font-semibold" data-testid="latest-articles-title">Latest Articles</h2>
+      <select class="border rounded-md p-1 text-sm text-gray-600" data-testid="articles-sort-dropdown">
+        <option data-testid="sort-option-newest">Newest First</option>
       </select>
     </div>
 
@@ -166,19 +146,35 @@
       </div>
 
       <!-- ปุ่ม Load More -->
-      <div class="text-center mt-6">
+      <div class="text-center mt-6" data-testid="load-more-button-container">
         <button 
           x-show="visibleCount < <%= @all_posts.size %>"
           @click="visibleCount += 3" 
           class="text-blue-500 hover:underline"
+          data-testid="load-more-button"
         >
           Load More Articles ↓
         </button>
       </div>
     </div>
-
-
-
-
+    
   </div>
 </div>
+
+   <script>
+    function toggleFollow() {
+      fetch("<%= follow_path %>", {
+        method: this.following ? "DELETE" : "POST",
+        headers: {
+          "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ following_id: <%= @user.id %> })
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.following = !this.following;
+      })
+      .catch(error => console.error("Error:", error));
+    }
+  </script>
