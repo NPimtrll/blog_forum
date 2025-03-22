@@ -1,50 +1,57 @@
-<div>
-  <div class="flex justify-between items-center mb-4">
+<div class="bg-white p-6 rounded-3xl shadow-lg mt-10">
+  <div class="flex items-center justify-between mb-6">
     <h2 class="text-2xl font-bold text-gray-800">Popular Articles</h2>
-    <%= link_to "View All", "#", class: "text-blue-600 hover:underline text-sm" %>
+    <%= link_to "View All", "#", class: "text-blue-600 hover:underline text-sm font-semibold" %>
   </div>
+
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <%# Article 1 %>
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-      <div class="relative">
-          <%= image_tag "article-default.png", class: "w-full h-80 object-cover" %>
-        <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-          DataScience
-        </div>
+    <div class="flex flex-col"> 
+      <div class="mb-4">
+        <%= image_tag "article-default.png", class: "w-full h-auto rounded-xl" %>
       </div>
-      <div class="p-4">
-        <h2 class="text-xl font-bold text-gray-800 mb-2">Data Analytics Trends in 2025</h2>
-        <p class="text-gray-600">Discover the latest trends shaping the future of data analytics and business intelligence.</p>
-        <div class="flex items-center text-sm text-gray-500 mt-4">
-          <span>Mike Johnson</span>
-          <span class="ml-auto">2.4K</span>
-          <span class="mx-1">•</span>
-          <span>128</span>
-          <span class="mx-1">•</span>
-          <span>423</span>
+      <div class="flex items-center justify-between mb-2">
+        <div class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">
+          #DataScience
         </div>
+        <button class="text-gray-500 hover:text-gray-700">
+          <i class="far fa-bookmark"></i>
+        </button>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-800 mb-1">Data Analytics Trends in 2025</h3>
+      <p class="text-sm text-gray-600 mb-2">Discover the latest trends shaping the future of data analytics and business intelligence.</p>
+      <div class="flex items-center text-sm text-gray-600">
+        <%= image_tag "default-avatar.png", class: "w-6 h-6 rounded-full mr-2" %>
+        <span class="mr-4">Nannapat Srimartpirom</span>
+        <span class="mr-4"><i class="far fa-eye mr-1"></i> 2.4k</span>
+        <span class="mr-4"><i class="far fa-comment-dots mr-1"></i> 12.8K</span>
+        <span class="mr-4"><i class="far fa-heart mr-1"></i> 423</span>
+        <span class="mr-4"><i class="far fa-share-square mr-1"></i> 19</span>
       </div>
     </div>
 
     <%# Article 2 %>
-    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-      <div class="relative">
-          <%= image_tag "article-default.png", class: "w-full h-80 object-cover" %>
-        <div class="absolute top-4 left-4 bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-          UXDesign
-        </div>
+    <div class="flex flex-col"> 
+      <div class="mb-4">
+        <%= image_tag "article-default.png", class:- "w-full h-auto rounded-xl" %>
       </div>
-      <div class="p-4">
-        <h2 class="text-xl font-bold text-gray-800 mb-2">UX Design Principles for 2025</h2>
-        <p class="text-gray-600">Essential design principles that will shape the future of user experience.</p>
-        <div class="flex items-center text-sm text-gray-500 mt-4">
-          <span>Sarah Chen</span>
-          <span class="ml-auto">1.8K</span>
-          <span class="mx-1">•</span>
-          <span>95</span>
-          <span class="mx-1">•</span>
-          <span>312</span>
+      <div class="flex items-center justify-between mb-2">
+        <div class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-semibold">
+          #UXDesign
         </div>
+        <button class="text-gray-500 hover:text-gray-700">
+          <i class="far fa-bookmark"></i>
+        </button>
+      </div>
+      <h3 class="text-lg font-semibold text-gray-800 mb-1">UX Design Principles for 2025</h3>
+      <p class="text-sm text-gray-600 mb-2">Essential design principles that will shape the future of user experience.</p>
+      <div class="flex items-center text-sm text-gray-600">
+        <%= image_tag "default-avatar.png", class: "w-6 h-6 rounded-full mr-2" %>
+        <span class="mr-4">Sarah Chen</span>
+        <span class="mr-4"><i class="far fa-eye mr-1"></i> 1.8k</span>
+        <span class="mr-4"><i class="far fa-comment-dots mr-1"></i> 95</span>
+        <span class="mr-4"><i class="far fa-heart mr-1"></i> 42</span>
+        <span class="mr-4"><i class="far fa-share-square mr-1"></i> 319</span>
       </div>
     </div>
   </div>
