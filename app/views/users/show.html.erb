@@ -4,9 +4,9 @@
     <div class="bg-white rounded-lg shadow-md overflow-hidden mb-4">
       <div class="flex items-center p-6 border-b border-gray-200">
         <% if @user.avatar.attached? %>
-          <%= image_tag url_for(@user.avatar), class: "w-20 h-20 rounded-full mr-4" %>
+          <%= image_tag url_for(@user.avatar), class: "w-20 h-20 rounded-full mr-4", alt: "User Avatar" %>
         <% else %>
-          <%= image_tag "default-avatar.png", class: "w-20 h-20 rounded-full mr-4" %>
+          <%= image_tag "default-avatar.png", class: "w-20 h-20 rounded-full mr-4", alt: "Default Avatar" %>
         <% end %>
         <div class="flex-grow">
           <div class="flex justify-between items-center">
@@ -14,18 +14,44 @@
               <h1 class="text-2xl font-semibold mr-2"><%= @user.full_name.presence || @user.username %></h1>
               <p class="text-gray-500"><%= @user.role.present? ? @user.role : "ไม่ได้กำหนดบทบาท" %></p>
             </div>
-          <div class="flex items-center space-x-2">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full flex items-center">
-              <i class="fas fa-user-plus mr-2"></i> Follow
-            </button>
-            <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center">
-              <i class="fas fa-envelope mr-2"></i> Message
-            </button>
+            <div class="flex items-center space-x-2" x-data="{ following: <%= current_user.following.include?(@user).to_json %> }">
+              <button 
+                class="py-2 px-4 rounded-full flex items-center font-semibold"
+                :class="following ? 'bg-gray-400 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'"
+                @click="toggleFollow"
+              >
+                <i :class="following ? 'fas fa-user-minus mr-2' : 'fas fa-user-plus mr-2'"></i>
+                <span x-text="following ? 'Unfollow' : 'Follow'"></span>
+              </button>
+
+              <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center">
+                <i class="fas fa-envelope mr-2"></i> Message
+              </button>
+
+              <script>
+                function toggleFollow() {
+                  fetch("<%= follow_path %>", {
+                    method: this.following ? "DELETE" : "POST",
+                    headers: {
+                      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
+                      "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ following_id: <%= @user.id %> })
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    this.following = !this.following;
+                  })
+                  .catch(error => console.error("Error:", error));
+                }
+              </script>
+            </div>
           </div>
-          </div>
+
           <div class="mt-2">
             <p class="text-gray-700"><%= @user.about_me.present? ? @user.about_me : "ยังไม่ได้เพิ่มคำโปรย" %></p>
           </div>
+          
           <div class="flex space-x-5 mt-4">
             <% twitter_url = @user.twitter_url.presence || "https://twitter.com" %>
             <a href="<%= twitter_url %>" target="_blank" class="text-blue-500 hover:text-blue-700">
@@ -62,11 +88,15 @@
         <p class="text-sm text-gray-500">Articles</p>
       </div>
       <div class="border rounded-lg bg-white p-4 text-center w-1/4">
-        <p class="text-lg font-semibold">15.8K</p>
+        <p class="text-lg font-semibold">
+          <%= number_to_human(@user.followers.count, units: { thousand: "K", million: "M", billion: "B" }) %>
+        </p>
         <p class="text-sm text-gray-500">Followers</p>
       </div>
-      <div class="border rounded-lg bg-white p-4 text-center w-1/4">
-        <p class="text-lg font-semibold">942</p>
+            <div class="border rounded-lg bg-white p-4 text-center w-1/4">
+        <p class="text-lg font-semibold">
+          <%= number_to_human(@user.following.count, units: { thousand: "K", million: "M", billion: "B" }) %>
+        </p>
         <p class="text-sm text-gray-500">Following</p>
       </div>
       <div class="border rounded-lg bg-white p-4 text-center w-1/4">

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post "tinymce_assets", to: "tinymce_assets#create"
   devise_for :users
   resources :users, only: [ :show, :edit, :update ]
+    resource :follow, only: [ :create, :destroy ]
   resources :posts do
     resources :likes, only: [ :create ]
     resources :comments, only: [ :create, :edit, :update, :destroy ]
