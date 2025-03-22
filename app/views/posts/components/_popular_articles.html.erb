@@ -1,0 +1,51 @@
+<div>
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-800">Popular Articles</h2>
+    <%= link_to "View All", "#", class: "text-blue-600 hover:underline text-sm" %>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <%# Article 1 %>
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+      <div class="relative">
+          <%= image_tag "article-default.png", class: "w-full h-80 object-cover" %>
+        <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+          DataScience
+        </div>
+      </div>
+      <div class="p-4">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">Data Analytics Trends in 2025</h2>
+        <p class="text-gray-600">Discover the latest trends shaping the future of data analytics and business intelligence.</p>
+        <div class="flex items-center text-sm text-gray-500 mt-4">
+          <span>Mike Johnson</span>
+          <span class="ml-auto">2.4K</span>
+          <span class="mx-1">•</span>
+          <span>128</span>
+          <span class="mx-1">•</span>
+          <span>423</span>
+        </div>
+      </div>
+    </div>
+
+    <%# Article 2 %>
+    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+      <div class="relative">
+          <%= image_tag "article-default.png", class: "w-full h-80 object-cover" %>
+        <div class="absolute top-4 left-4 bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+          UXDesign
+        </div>
+      </div>
+      <div class="p-4">
+        <h2 class="text-xl font-bold text-gray-800 mb-2">UX Design Principles for 2025</h2>
+        <p class="text-gray-600">Essential design principles that will shape the future of user experience.</p>
+        <div class="flex items-center text-sm text-gray-500 mt-4">
+          <span>Sarah Chen</span>
+          <span class="ml-auto">1.8K</span>
+          <span class="mx-1">•</span>
+          <span>95</span>
+          <span class="mx-1">•</span>
+          <span>312</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
