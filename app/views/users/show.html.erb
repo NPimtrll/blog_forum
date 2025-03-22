@@ -21,21 +21,23 @@
                 </div>
               <p class="text-gray-500" data-testid="user-role"><%= @user.role.present? ? @user.role : "ไม่ได้กำหนดบทบาท" %></p>
             </div>
-            <div class="flex items-center space-x-2" x-data="{ following: <%= current_user.following.include?(@user).to_json %> }" data-testid="follow-buttons">
-              <button 
-                class="py-2 px-4 rounded-full flex items-center font-semibold"
-                :class="following ? 'bg-gray-400 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'"
-                @click="toggleFollow"
-                data-testid="follow-button"
-              >
-                <i :class="following ? 'fas fa-user-minus mr-2' : 'fas fa-user-plus mr-2'" data-testid="follow-icon"></i>
-                <span x-text="following ? 'Unfollow' : 'Follow'" data-testid="follow-text"></span>
-              </button>
+            <%# button follow %>
+            <div class="flex items-center space-x-2">
+              <% if current_user.following.include?(@user) %>
+                <%= button_to unfollow_user_path(@user), method: :delete, class: "py-2 px-4 rounded-full flex items-center font-semibold bg-gray-400 text-white" do %>
+                  <i class="fas fa-user-minus mr-2"></i> Unfollow
+                <% end %>
+              <% else %>
+                <%= button_to follow_user_path(@user), method: :post, class: "py-2 px-4 rounded-full flex items-center font-semibold bg-blue-600 hover:bg-blue-700 text-white" do %>
+                  <i class="fas fa-user-plus mr-2"></i> Follow
+                <% end %>
+              <% end %>
 
-              <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center" data-testid="message-button">
+              <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center">
                 <i class="fas fa-envelope mr-2"></i> Message
               </button>
             </div>
+
           </div>
 
           <div class="mt-2">
@@ -168,20 +170,20 @@
   </div>
 </div>
 
-   <script>
-    function toggleFollow() {
-      fetch("<%= follow_path %>", {
-        method: this.following ? "DELETE" : "POST",
-        headers: {
-          "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ following_id: <%= @user.id %> })
-      })
-      .then(response => response.json())
-      .then(data => {
-        this.following = !this.following;
-      })
-      .catch(error => console.error("Error:", error));
-    }
-  </script>
+<div class="flex items-center space-x-2" x-data="{ following: <%= current_user.following.include?(@user).to_json %> }" data-testid="follow-buttons">
+  <button 
+    class="py-2 px-4 rounded-full flex items-center font-semibold"
+    :class="following ? 'bg-gray-400 text-white' : 'bg-blue-600 hover:bg-blue-700 text-white'"
+    @click="toggleFollow"
+    data-testid="follow-button"
+  >
+    <i :class="following ? 'fas fa-user-minus mr-2' : 'fas fa-user-plus mr-2'" data-testid="follow-icon"></i>
+    <span x-text="following ? 'Unfollow' : 'Follow'" data-testid="follow-text"></span>
+  </button>
+
+  <button class="border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-full flex items-center" data-testid="message-button">
+    <i class="fas fa-envelope mr-2"></i> Message
+  </button>
+</div>
+
+
