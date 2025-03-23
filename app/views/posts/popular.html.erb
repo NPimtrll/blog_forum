@@ -1,0 +1,12 @@
+<div class="bg-white p-6 rounded-3xl shadow-lg mt-10 mb-10" data-testid="popular-articles-container">
+  <div class="flex items-center justify-between mb-6" data-testid="popular-articles-header">
+    <h2 class="text-2xl font-bold text-gray-800" data-testid="popular-articles-title">Popular Articles</h2>
+    <%= link_to "Back to Home", root_path, class: "text-blue-600 hover:underline text-sm font-semibold", data: { testid: "back-to-home-link" } %>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-testid="popular-articles-list">
+    <% @posts.each do |post| %>
+      <%= render partial: "posts/components/article_card", locals: { post: post }, data: { testid: "article-card-#{post.id}" } %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="flex flex-col" data-testid="article-card-<%= post.id %>">
+  <div class="mb-4" data-testid="article-image">
+    <% if post.cover_image.attached? %>
+      <%= link_to post_path(post), data: { testid: "article-link-#{post.id}" } do %>
+        <%= image_tag post.cover_image, class: "w-full h-48 object-cover", alt: "Cover Image for #{post.title}", data: { testid: "article-cover-image-#{post.id}" } %>
+      <% end %>
+    <% else %>
+      <%= link_to post_path(post), data: { testid: "article-link-#{post.id}" } do %>
+        <%= image_tag "article-default.png", class: "w-full h-48 object-cover", alt: "Default Cover Image", data: { testid: "article-default-image" } %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="flex items-center justify-between mb-2" data-testid="article-category">
+    <div class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold" data-testid="article-category-name">
+      #<%= post.category.name if post.category %>
+    </div>
+    <button class="text-gray-500 hover:text-gray-700" data-testid="article-bookmark-button">
+      <i class="far fa-bookmark"></i>
+    </button>
+  </div>
+  <h3 class="text-lg font-semibold text-gray-800 mb-1" data-testid="article-title">
+    <%= link_to post.title, post_path(post), data: { testid: "article-title-link-#{post.id}" } %>
+  </h3>
+  <p class="text-sm text-gray-600 mb-2" data-testid="article-excerpt">
+    <%= truncate(post.excerpt, length: 100) %>
+  </p>
+  <div class="flex items-center text-sm text-gray-600" data-testid="article-meta">
+    <% if user_signed_in? %> 
+      <%= link_to user_path(post.user), class: "flex items-center", data: { testid: "article-author-#{post.user.id}" } do %>
+        <% if post.user.avatar.attached? %>
+          <%= image_tag url_for(post.user.avatar), class: "w-10 h-10 rounded-full mr-4", alt: "User Avatar", data: { testid: "user-avatar-#{post.user.id}" } %>
+        <% else %>
+          <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full mr-4", alt: "Default Avatar", data: { testid: "default-avatar" } %>
+        <% end %>
+        <span class="mr-4" data-testid="article-author-name"><%= post.user.username %></span>
+      <% end %>
+    <% else %>
+      <%= link_to user_session_path, class: "flex items-center", data: { testid: "article-author-login" } do %>
+        <% if post.user.avatar.attached? %>
+          <%= image_tag url_for(post.user.avatar), class: "w-10 h-10 rounded-full mr-4", alt: "User Avatar", data: { testid: "user-avatar-#{post.user.id}" } %>
+        <% else %>
+          <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full mr-4", alt: "Default Avatar", data: { testid: "default-avatar" } %>
+        <% end %>
+        <span class="mr-4" data-testid="article-author-name"><%= post.user.username %></span>
+      <% end %>
+    <% end %>
+
+    <span class="mr-4" data-testid="article-views"><i class="far fa-eye mr-1"></i> <%= number_to_human(post.views) %></span>
+    <span class="mr-4" data-testid="article-comments"><i class="far fa-comment-dots mr-1"></i> <%= number_to_human(post.comments.count) %></span>
+    <span class="mr-4" data-testid="article-likes"><i class="far fa-heart mr-1"></i> <%= number_to_human(post.likes.count) %></span>
+    <span class="mr-4" data-testid="article-shares"><i class="far fa-share-square mr-1"></i> 19</span>
+  </div>
+</div>

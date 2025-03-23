@@ -1,13 +1,12 @@
-<div class="w-full p-8">
+<div class="w-full p-8" data-testid="posts-index-container">
 
-      <%= render 'posts/components/main_article' %>
-      
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2">
-          <%= render 'posts/components/popular_articles' %>
-          <%= render 'posts/components/lastest_articles' %>
-        </div>
-        <%= render 'posts/components/sidebar' %>
-      </div>
+  <%= render 'posts/components/main_article', data: { testid: 'main-article' } %>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" data-testid="posts-grid-container">
+    <div class="lg:col-span-2" data-testid="main-articles-section">
+      <%= render 'posts/components/popular_articles', data: { testid: 'popular-articles' } %>
+      <%= render 'posts/components/lastest_articles', data: { testid: 'latest-articles' } %>
+    </div>
+    <%= render 'posts/components/sidebar', data: { testid: 'sidebar' } %>
   </div>
 </div>

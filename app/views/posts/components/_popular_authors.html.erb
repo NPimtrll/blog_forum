@@ -1,44 +1,44 @@
-<div class="bg-white rounded-2xl shadow-md p-6 mt-6">
-    <h2 class="text-xl font-bold text-gray-800 mb-4">Popular Authors</h2>
-    <div class="space-y-4">
+<div class="bg-white rounded-2xl shadow-md p-6 mt-6" data-testid="popular-authors-container">
+    <h2 class="text-xl font-bold text-gray-800 mb-4" data-testid="popular-authors-title">Popular Authors</h2>
+    <div class="space-y-4" data-testid="popular-authors-list">
         <% User.left_joins(:followers)
                     .select('users.*, COUNT(follows.id) AS followers_count')
                     .group('users.id')
                     .order('followers_count DESC')
                     .limit(5).each do |user| %>
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between" data-testid="author-<%= user.id %>">
                 <div class="flex items-center">
                     <% if user_signed_in? %>
-                        <%= link_to user_path(user) do %>
-                            <%= image_tag user.avatar.attached? ? user.avatar : "article-default.png", class: "w-12 h-12 rounded-full mr-3 object-cover" %>
+                        <%= link_to user_path(user), data: { testid: "author-link-#{user.id}" } do %>
+                            <%= image_tag user.avatar.attached? ? user.avatar : "article-default.png", class: "w-12 h-12 rounded-full mr-3 object-cover", data: { testid: "author-avatar-#{user.id}" } %>
                         <% end %>
                     <% else %>
-                        <%= link_to new_user_session_path do %>
-                            <%= image_tag user.avatar.attached? ? user.avatar : "article-default.png", class: "w-12 h-12 rounded-full mr-3 object-cover" %>
+                        <%= link_to new_user_session_path, data: { testid: "login-link-#{user.id}" } do %>
+                            <%= image_tag user.avatar.attached? ? user.avatar : "article-default.png", class: "w-12 h-12 rounded-full mr-3 object-cover", data: { testid: "author-avatar-#{user.id}" } %>
                         <% end %>
                     <% end %>
-                    <div>
+                    <div data-testid="author-name-<%= user.id %>">
                         <% if user_signed_in? %>
-                            <%= link_to user_path(user) do %>
+                            <%= link_to user_path(user), data: { testid: "author-name-link-#{user.id}" } do %>
                                 <h3 class="text-sm font-semibold text-gray-800"><%= user.full_name.presence || user.username %></h3>
                             <% end %>
                         <% else %>
-                            <%= link_to new_user_session_path do %>
+                            <%= link_to new_user_session_path, data: { testid: "login-author-name-link-#{user.id}" } do %>
                                 <h3 class="text-sm font-semibold text-gray-800"><%= user.full_name.presence || user.username %></h3>
                             <% end %>
                         <% end %>
-                        <p class="text-xs text-gray-500"><%= user.role.presence || "No role available" %></p>
+                        <p class="text-xs text-gray-500" data-testid="author-role-<%= user.id %>"><%= user.role.presence || "No role available" %></p>
                     </div>
                 </div>
 
                 <% if current_user && current_user != user %> 
-                    <div>
+                    <div data-testid="author-follow-button-<%= user.id %>">
                         <% if current_user.following.include?(user) %>
-                            <%= button_to unfollow_user_path(user), method: :delete, class: "py-2 px-4 rounded-full flex items-center font-semibold bg-gray-400 text-white" do %>
+                            <%= button_to unfollow_user_path(user), method: :delete, class: "py-2 px-4 rounded-full flex items-center font-semibold bg-gray-400 text-white", data: { testid: "unfollow-button-#{user.id}" } do %>
                                 <i class="fas fa-user-minus mr-2"></i> Unfollow
                             <% end %>
                         <% else %>
-                            <%= button_to follow_user_path(user), method: :post, class: "py-2 px-4 rounded-full flex items-center font-semibold bg-blue-600 hover:bg-blue-700 text-white" do %>
+                            <%= button_to follow_user_path(user), method: :post, class: "py-2 px-4 rounded-full flex items-center font-semibold bg-blue-600 hover:bg-blue-700 text-white", data: { testid: "follow-button-#{user.id}" } do %>
                                 <i class="fas fa-user-plus mr-2"></i> Follow
                             <% end %>
                         <% end %>

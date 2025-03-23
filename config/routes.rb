@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get "/tags/find_or_create", to: "tags#find_or_create"
   get "up" => "rails/health#show", as: :rails_health_check
+  get "/popular", to: "posts#popular", as: "popular_posts"
 
   root "posts#index"
 end

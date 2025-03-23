@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authenticate_user!, except: [ :index, :show, :popular ]
   before_action :authorize_post_owner, only: [ :edit, :update, :destroy ]
   # GET /posts or /posts.json
   def index
     @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
+    @popular_posts = Post.order(views: :desc).limit(2)
   end
 
   # GET /posts/1 or /posts/1.json
@@ -65,6 +66,10 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_path, status: :see_other, notice: "Post was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def popular
+    @posts = Post.includes(:user, :comments, :likes, :category).order(views: :desc)
   end
 
   private
