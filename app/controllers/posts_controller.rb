@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
     @popular_posts = Post.order(views: :desc).limit(2)
+    @latest_posts = Post.order(created_at: :desc).limit(2)
   end
 
   # GET /posts/1 or /posts/1.json
@@ -70,6 +71,10 @@ class PostsController < ApplicationController
 
   def popular
     @posts = Post.includes(:user, :comments, :likes, :category).order(views: :desc)
+  end
+
+  def latest
+    @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
   end
 
   private

@@ -1,70 +1,20 @@
-<div class="bg-white p-6 rounded-3xl shadow-lg mt-10">
+<div class="bg-white p-6 rounded-3xl shadow-lg mt-10" data-testid="latest-articles-container">
   <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold text-gray-800">Latest Articles</h2>
+    <h2 class="text-2xl font-bold text-gray-800" data-testid="latest-articles-title">Latest Articles</h2>
     <div>
-      <button class="text-sm text-gray-600 hover:text-blue-600 mr-2">Today</button>
-      <button class="text-sm text-blue-600 font-semibold border-b-2 border-blue-600 mr-2">This Week</button>
-      <button class="text-sm text-gray-600 hover:text-blue-600">This Month</button>
+      <button class="text-sm text-gray-600 hover:text-blue-600 mr-2" data-testid="today-button">Today</button>
+      <button class="text-sm text-blue-600 font-semibold border-b-2 border-blue-600 mr-2" data-testid="this-week-button">This Week</button>
+      <button class="text-sm text-gray-600 hover:text-blue-600" data-testid="this-month-button">This Month</button>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 gap-6">
-    <%# Article 1 %>
-    <div class="flex items-start">
-      <div class="relative w-1/3 mr-4">
-        <%= image_tag "article-default.png", class: "w-full h-auto rounded-xl" %>
-      </div>
-      <div class="w-2/3">
-        <div class="flex items-center justify-between mb-2">
-          <div class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
-            #Crypto
-          </div>
-          <button class="text-gray-500 hover:text-gray-700">
-            <i class="far fa-bookmark"></i>
-          </button>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-800 mb-1">The Evolution of Cryptocurrency Trading</h3>
-        <p class="text-sm text-gray-600 mb-2">An in-depth look at how cryptocurrency trading has evolved and what to expect in 2025.</p>
-        <div class="flex items-center text-sm text-gray-600">
-          <%= image_tag "default-avatar.png", class: "w-6 h-6 rounded-full mr-2" %>
-          <span class="mr-4">Emma Wilson</span>
-          <span class="mr-4"><i class="far fa-eye mr-1"></i> 1.2k</span>
-          <span class="mr-4"><i class="far fa-comment-dots mr-1"></i> 76</span>
-          <span class="mr-4"><i class="far fa-heart mr-1"></i> 245</span>
-          <span class="mr-4"><i class="far fa-share-square mr-1"></i> 19</span>
-        </div>
-      </div>
-    </div>
-
-    <%# Article 2 %>
-    <div class="flex items-start">
-      <div class="relative w-1/3 mr-4">
-        <%= image_tag "article-default.png", class: "w-full h-auto rounded-xl" %>
-      </div>
-      <div class="w-2/3">
-        <div class="flex items-center justify-between mb-2">
-          <div class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm font-semibold">
-            #Sustainability
-          </div>
-          <button class="text-gray-500 hover:text-gray-700">
-            <i class="far fa-bookmark"></i>
-          </button>
-        </div>
-        <h3 class="text-lg font-semibold text-gray-800 mb-1">Green Tech: The Future of Sustainable Innovation</h3>
-        <p class="text-sm text-gray-600 mb-2">Exploring how technology is driving sustainability initiatives worldwide.</p>
-        <div class="flex items-center text-sm text-gray-600">
-          <%= image_tag "default-avatar.png", class: "w-6 h-6 rounded-full mr-2" %>
-          <span class="mr-4">Nannapat Srimartpirommm</span>
-          <span class="mr-4"><i class="far fa-eye mr-1"></i> 956</span>
-          <span class="mr-4"><i class="far fa-comment-dots mr-1"></i> 64</span>
-          <span class="mr-4"><i class="far fa-heart mr-1"></i> 189</span>
-          <span class="mr-4"><i class="far fa-share-square mr-1"></i> 12</span>
-        </div>
-      </div>
-    </div>
+  <div class="grid grid-cols-1 gap-6" data-testid="latest-posts-list">
+    <% @latest_posts.each do |post| %>
+      <%= render partial: "posts/components/post_card", locals: { post: post, data_test_id: "post-#{post.id}" } %>
+    <% end %>
   </div>
 
   <div class="mt-6">
-    <%= link_to "Load More Articles", "#", class: "block w-full px-8 py-3 bg-white border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition duration-300 text-center" %>
+    <%= link_to "Load More Articles", latest_posts_path, class: "block w-full px-8 py-3 text-center bg-white border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition duration-300", data: { testid: 'load-more-articles-button' } %>
   </div>
 </div>
