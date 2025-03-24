@@ -3,10 +3,13 @@
 
     <% if @trending_tags.present? %>
         <div class="space-y-2">
-        <% @trending_tags.each do |tag| %>
-            <div class="flex items-center justify-between">
-                <%= link_to "##{tag.name}", tagged_posts_path(tag_id: tag.id), class: "text-sm text-gray-600" %>
-                <span class="text-sm text-gray-500"><%= tag.post_count %> articles</span>
+        <% @trending_tags.each_with_index do |tag, index| %>
+            <% tag_colors = ["text-blue-600", "text-purple-600", "text-green-600", "text-yellow-600", "text-red-600"] %>
+            <% tag_color = tag_colors[index % tag_colors.size] %> 
+
+            <div class="flex items-center justify-between hover:bg-gray-100 p-2 rounded-md transition-colors duration-200">
+            <%= link_to "##{tag.name}", tagged_posts_path(tag_id: tag.id), class: "text-sm font-bold #{tag_color} hover:underline" %>
+            <span class="text-sm text-gray-500"><%= tag.post_count %> articles</span>
             </div>
         <% end %>
         </div>
