@@ -78,6 +78,11 @@ class PostsController < ApplicationController
     @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
   end
 
+  def tagged
+    @tag = Tag.find(params[:tag_id])
+    @posts = @tag.posts.includes(:user, :comments, :likes, :category)
+  end
+
   private
     def authorize_post_owner
       redirect_to root_path, alert: "You are not authorized to modify this post." unless @post.user == current_user

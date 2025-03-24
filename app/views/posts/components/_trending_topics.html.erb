@@ -5,7 +5,7 @@
         <div class="space-y-2">
         <% @trending_tags.each do |tag| %>
             <div class="flex items-center justify-between">
-                <span class="text-sm text-gray-600">#<%= tag.name %></span>
+                <%= link_to "##{tag.name}", tagged_posts_path(tag_id: tag.id), class: "text-sm text-gray-600" %>
                 <span class="text-sm text-gray-500"><%= tag.post_count %> articles</span>
             </div>
         <% end %>

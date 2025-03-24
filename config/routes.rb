@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   end
 
   resources :posts do
+    collection do
+      get "tagged", to: "posts#tagged", as: "tagged"
+    end
     resources :likes, only: [ :create ]
     resources :comments, only: [ :create, :edit, :update, :destroy ]
   end
