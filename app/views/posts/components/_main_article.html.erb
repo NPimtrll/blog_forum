@@ -1,87 +1,89 @@
-<div class="relative w-full overflow-hidden rounded-2xl">
-  <div class="flex w-full transition-transform duration-500 ease-in-out">
-    <div class="flex-shrink-0 w-full relative">
+<div class="relative w-full overflow-hidden rounded-2xl" data-testid="main-article">
+  <div class="flex w-full transition-transform duration-500 ease-in-out" id="postSlider" data-testid="post-slider">
+    <% @head_posts.each_with_index do |post, index| %>
+    <div class="flex-shrink-0 w-full relative slide" data-index="<%= index %>" data-testid="slide-<%= index %>">
       <div class="relative">
-        <%= image_tag "article-default.png", class: "w-full h-80 object-cover brightness-50" %>
-        <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-          Technology
-        </div>
+        <%= link_to post_path(post), class: "block w-full", data: { testid: "post-link-#{index}" } do %>
+          <% if post.cover_image.attached? %>
+            <%= image_tag post.cover_image, class: "w-full h-96 object-cover brightness-50", alt: "Cover Image for #{post.title}", data: { testid: "cover-image-#{index}" } %>
+          <% else %>
+            <%= image_tag "article-default.png", class: "w-full h-96 object-cover brightness-50", alt: "Default Cover Image", data: { testid: "default-cover-image-#{index}" } %>
+          <% end %>
+          <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold" data-testid="category-<%= index %>">
+            <%= post.category.name if post.category %>
+          </div>
+        <% end %>
       </div>
       <div class="absolute bottom-0 left-0 p-6 w-full">
-        <h2 class="text-3xl font-bold text-white mb-2">The Future of AI in Content Creation: A Deep Dive</h2>
-        <p class="text-white mb-4">Explore how artificial intelligence is revolutionizing the way we create and consume content in 2025.</p>
+        <%= link_to post_path(post), class: "block", data: { testid: "post-title-link-#{index}" } do %>
+          <h2 class="text-3xl font-bold text-white mb-2" data-testid="post-title-<%= index %>"><%= post.title %></h2>
+          <p class="text-white mb-4" data-testid="post-excerpt-<%= index %>"><%= truncate(post.excerpt, length: 150) %></p>
+        <% end %>
         <div class="flex flex-col text-sm text-white">
-          <div class="flex items-center">
-            <%= image_tag "default-avatar.png", class: "w-8 h-8 rounded-full mr-3 object-cover" %>
-            <span>John Anderson</span>
+          <div class="flex items-center" data-testid="user-info-<%= index %>">
+            <% if post.user.avatar.attached? %>
+              <%= image_tag url_for(post.user.avatar), class: "w-8 h-8 rounded-full mr-3 object-cover", alt: "User Avatar", data: { testid: "user-avatar-#{index}" } %>
+            <% else %>
+              <%= image_tag "default-avatar.png", class: "w-8 h-8 rounded-full mr-3 object-cover", alt: "Default Avatar", data: { testid: "default-avatar-#{index}" } %>
+            <% end %>
+            <span data-testid="username-<%= index %>"><%= post.user.username %></span>
           </div>
-          <div class="flex items-center mt-1">
-            <span>Jan 15, 2025</span>
+          <div class="flex items-center mt-1" data-testid="post-meta-<%= index %>">
+            <span data-testid="post-date-<%= index %>"><%= post.created_at.strftime("%b %d, %Y") %></span>
             <span class="mx-2">•</span>
-            <span>8 min read</span>
+            <span data-testid="post-read-time-<%= index %>"><%= time_ago_in_words(post.created_at) %> read</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="flex-shrink-0 w-full relative">
-      <div class="relative">
-        <%= image_tag "article-default.png", class: "w-full h-80 object-cover brightness-50" %>
-        <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-          DataScience
-        </div>
-      </div>
-      <div class="absolute bottom-0 left-0 p-6 w-full">
-        <h2 class="text-3xl font-bold text-white mb-2">Data Analytics Trends in 2025</h2>
-        <p class="text-white mb-4">Discover the latest trends shaping the future of data analytics and business intelligence.</p>
-        <div class="flex flex-col text-sm text-white">
-          <div class="flex items-center">
-            <%= image_tag "default-avatar.png", class: "w-8 h-8 rounded-full mr-3 object-cover" %>
-            <span>Mike Johnson</span>
-          </div>
-          <div class="flex items-center mt-1">
-            <span>Feb 10, 2025</span>
-            <span class="mx-2">•</span>
-            <span>6 min read</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex-shrink-0 w-full relative">
-      <div class="relative">
-        <%= image_tag "article-default.png", class: "w-full h-80 object-cover brightness-50" %>
-        <div class="absolute top-4 left-4 bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-          UXDesign
-        </div>
-      </div>
-      <div class="absolute bottom-0 left-0 p-6 w-full">
-        <h2 class="text-3xl font-bold text-white mb-2">UX Design Principles for 2025</h2>
-        <p class="text-white mb-4">Essential design principles that will shape the future of user experience.</p>
-        <div class="flex flex-col text-sm text-white">
-          <div class="flex items-center">
-            <%= image_tag "default-avatar.png", class: "w-8 h-8 rounded-full mr-3 object-cover" %>
-            <span>Sarah Chen</span>
-          </div>
-          <div class="flex items-center mt-1">
-            <span>Mar 5, 2025</span>
-            <span class="mx-2">•</span>
-            <span>7 min read</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <% end %>
   </div>
-  <div class="absolute bottom-4 right-16 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 group focus:outline-none">
-    <%= link_to "#", class: "w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" do %>
-      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 10" class="flex items-center justify-center"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 2 5l4 3"/>
+  
+  <!-- Previous Button -->
+  <div class="absolute bottom-4 right-16 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 group focus:outline-none" id="prevButton" data-testid="prev-button">
+    <%= link_to "#", class: "w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180", data: { testid: "prev-button-link" } do %>
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 10" class="flex items-center justify-center"> 
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 2 2 5l4 3"/>
       </svg>
       <span class="sr-only">Previous</span>
     <% end %>
   </div>
-  <div class="absolute bottom-4 right-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 group focus:outline-none">
-    <%= link_to "#", class: "w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" do %>
-      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 10" class="flex items-center justify-center"> <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 2l4 3-4 3"/>
+  
+  <!-- Next Button -->
+  <div class="absolute bottom-4 right-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 group focus:outline-none" id="nextButton" data-testid="next-button">
+    <%= link_to "#", class: "w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180", data: { testid: "next-button-link" } do %>
+      <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 10" class="flex items-center justify-center"> 
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 2l4 3-4 3"/>
       </svg>
       <span class="sr-only">Next</span>
     <% end %>
   </div>
 </div>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+  const prevButton = document.getElementById('prevButton');
+  const nextButton = document.getElementById('nextButton');
+  const slider = document.getElementById('postSlider');
+
+  function showSlide(index) {
+    const totalSlides = slides.length;
+    currentIndex = (index + totalSlides) % totalSlides; 
+    slider.style.transform = `translateX(-${100 * currentIndex}%)`;
+  }
+
+  nextButton.addEventListener('click', () => {
+    showSlide(currentIndex + 1);
+  });
+
+  prevButton.addEventListener('click', () => {
+    showSlide(currentIndex - 1);
+  });
+
+  setInterval(() => {
+    showSlide(currentIndex + 1);
+  }, 5000);
+
+  showSlide(currentIndex);
+</script>

@@ -7,6 +7,7 @@ class PostsController < ApplicationController
     @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
     @popular_posts = Post.order(views: :desc).limit(2)
     @latest_posts = Post.order(created_at: :desc).limit(2)
+    @head_posts = Post.order(created_at: :desc).limit(5)
     @trending_tags = Tag.trending(5)
   end
 
