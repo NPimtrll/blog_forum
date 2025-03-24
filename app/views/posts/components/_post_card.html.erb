@@ -26,7 +26,7 @@
     </h3>
     <p class="text-sm text-gray-600 mb-4" data-testid="article-excerpt"><%= truncate(post.excerpt, length: 200, separator: ' ') %></p>
     <div class="flex items-center text-sm text-gray-600" data-testid="article-meta-info">
-       <% if user_signed_in? %> 
+        <% if user_signed_in? %> 
             <%= link_to user_path(post.user), class: "flex items-center", data: { testid: "article-author-#{post.user.id}" } do %>
             <% if post.user.avatar.attached? %>
                 <%= image_tag url_for(post.user.avatar), class: "w-10 h-10 rounded-full mr-4", alt: "User Avatar", data: { testid: "user-avatar-#{post.user.id}" } %>

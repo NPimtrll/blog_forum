@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   get "/tags/find_or_create", to: "tags#find_or_create"
+  get "/tags/trending", to: "tags#trending", as: "trending_tags"
   get "up" => "rails/health#show", as: :rails_health_check
   get "/popular", to: "posts#popular", as: "popular_posts"
   get "/latest", to: "posts#latest", as: "latest_posts"
