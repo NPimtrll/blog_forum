@@ -2,11 +2,28 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [ :index, :show, :popular ]
   before_action :authorize_post_owner, only: [ :edit, :update, :destroy ]
+
   # GET /posts or /posts.json
   def index
-    @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
+    if params[:query].present?
+      # ถ้ามีคำค้นหาให้แสดงผลลัพธ์การค้นหา
+      @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    else
+      # ถ้าไม่มีคำค้นหาแสดงโพสต์ทั้งหมดตามปกติ
+      @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
+    end
     @popular_posts = Post.order(views: :desc).limit(2)
-    @latest_posts = Post.order(created_at: :desc).limit(2)
+    @latest_posts = case params[:filter]
+    when "today"
+                      Post.where("created_at >= ?", Time.zone.now.beginning_of_day)
+    when "this_week"
+                      Post.where("created_at >= ?", Time.zone.now.beginning_of_week)
+    when "this_month"
+                      Post.where("created_at >= ?", Time.zone.now.beginning_of_month)
+    else
+                      Post.all
+    end
+    @latest_limit_posts = @latest_posts.order(created_at: :desc).limit(2)
     @head_posts = Post.order(created_at: :desc).limit(5)
     @trending_tags = Tag.trending(5)
   end
@@ -43,6 +60,13 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def search
+    query = params[:query].strip
+    # เปลี่ยนจาก ILIKE เป็น LIKE
+    @posts = Post.joins(:category).where("title LIKE ? OR content LIKE ? OR categories.name LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%").limit(5)
+    render json: @posts.map { |post| { id: post.id, title: post.title } }
   end
 
 
@@ -88,12 +112,11 @@ class PostsController < ApplicationController
     def authorize_post_owner
       redirect_to root_path, alert: "You are not authorized to modify this post." unless @post.user == current_user
     end
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_post
       @post = Post.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :content, :excerpt, :cover_image, :category_id, tag_names: []).merge(user_id: current_user.id)
     end

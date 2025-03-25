@@ -1,15 +1,15 @@
 <div class="bg-white p-6 rounded-3xl shadow-lg mt-10" data-testid="latest-articles-container">
   <div class="flex items-center justify-between mb-6">
     <h2 class="text-2xl font-bold text-gray-800" data-testid="latest-articles-title">Latest Articles</h2>
-    <div>
-      <button class="text-sm text-gray-600 hover:text-blue-600 mr-2" data-testid="today-button">Today</button>
-      <button class="text-sm text-blue-600 font-semibold border-b-2 border-blue-600 mr-2" data-testid="this-week-button">This Week</button>
-      <button class="text-sm text-gray-600 hover:text-blue-600" data-testid="this-month-button">This Month</button>
+    <div class="flex space-x-2">
+      <%= link_to 'Today', posts_path(filter: 'today'), class: "text-sm text-white-600 rounded-full py-2 px-4 #{params[:filter] == 'today' ? 'bg-blue-600 text-white font-semibold' : 'hover:bg-gray-100'}", data: { testid: 'today-button' } %>
+      <%= link_to 'This Week', posts_path(filter: 'this_week'), class: "text-sm text-white-600 rounded-full py-2 px-4 #{params[:filter] == 'this_week' ? 'bg-blue-600 text-white font-semibold' : 'hover:bg-gray-100'}", data: { testid: 'this-week-button' } %>
+      <%= link_to 'This Month', posts_path(filter: 'this_month'), class: "text-sm text-white-600 rounded-full py-2 px-4 #{params[:filter] == 'this_month' ? 'bg-blue-600 text-white font-semibold' : 'hover:bg-gray-100'}", data: { testid: 'this-month-button' } %>
     </div>
   </div>
 
   <div class="grid grid-cols-1 gap-6" data-testid="latest-posts-list">
-    <% @latest_posts.each do |post| %>
+    <% @latest_limit_posts.each do |post| %>
       <%= render partial: "posts/components/post_card", locals: { post: post, data_test_id: "post-#{post.id}" } %>
     <% end %>
   </div>
