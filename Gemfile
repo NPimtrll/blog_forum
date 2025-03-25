@@ -56,6 +56,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
   gem "simplecov", require: false, git: "https://github.com/simplecov-ruby/simplecov"
   gem "shoulda-matchers"
+  gem "rails-controller-testing"
 end
 
 group :development do
