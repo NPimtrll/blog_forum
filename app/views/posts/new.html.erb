@@ -1,12 +1,11 @@
 <% content_for :title, "New post" %>
 
-<div class="max-w-screen-xl mx-auto px-4">
-  <div class="max-w-4xl mx-auto mb-8">
+<div class="max-w-screen-xl mx-auto px-4" data-testid="new-post-container">
+  <div class="max-w-4xl mx-auto mb-8" data-testid="breadcrumb-container">
     <%= render "shared/breadcrumb" %>
-    <h1 class="text-3xl font-bold mb-2">Create New Article</h1>
-    <p class="text-gray-600">Share your thoughts with the world</p>
+    <h1 class="text-3xl font-bold mb-2" data-testid="create-article-heading">Create New Article</h1>
+    <p class="text-gray-600" data-testid="create-article-description">Share your thoughts with the world</p>
   </div>
 
-  <%= render "form", post: @post %>
+  <%= render "form", post: @post, data: { testid: "post-form" } %>
 </div>
-

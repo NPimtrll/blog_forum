@@ -1,57 +1,57 @@
 <%= form_with(model: post, class: "max-w-4xl mx-auto bg-white shadow-sm rounded-lg p-6", local: true, html: { multipart: true }) do |form| %>
   <% if post.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3" data-testid="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
       <ul class="list-disc ml-6">
         <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li data-testid="error_message"><%= error.full_message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="mb-6">
-    <%= form.label :title, "Article Title*", class: "block text-sm font-medium mb-2" %>
-    <%= form.text_field :title, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "Enter your article title here" %>
-    <p class="text-sm text-gray-500 mt-2">Keep your title under 100 characters for better readability</p>
+    <%= form.label :title, "Article Title*", class: "block text-sm font-medium mb-2", data: { testid: "title_label" } %>
+    <%= form.text_field :title, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "Enter your article title here", data: { testid: "title_input" } %>
+    <p class="text-sm text-gray-500 mt-2" data-testid="title_hint">Keep your title under 100 characters for better readability</p>
   </div>
 
   <div class="mb-6">
-    <%= form.label :excerpt, "Short Description", class: "block text-sm font-medium mb-2" %>
-    <%= form.text_area :excerpt, rows: 3, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "Write a brief description of your article..." %>
-    <p class="text-sm text-gray-500 mt-2">A short summary that appears in article previews (max 200 characters)</p>
+    <%= form.label :excerpt, "Short Description", class: "block text-sm font-medium mb-2", data: { testid: "excerpt_label" } %>
+    <%= form.text_area :excerpt, rows: 3, class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "Write a brief description of your article...", data: { testid: "excerpt_input" } %>
+    <p class="text-sm text-gray-500 mt-2" data-testid="excerpt_hint">A short summary that appears in article previews (max 200 characters)</p>
   </div>
 
   <div class="mb-6">
-    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center" data-testid="cover_image_dropzone">
       <div class="flex flex-col items-center">
         <svg class="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
         </svg>
-        <p class="mb-2">Drag and drop your cover image here, or</p>
-        <%= form.file_field :cover_image, class: "hidden", id: "cover_image_input" %>
-        <button type="button" onclick="document.getElementById('cover_image_input').click()" class="text-blue-600 hover:text-blue-500">
+        <p class="mb-2" data-testid="cover_image_text">Drag and drop your cover image here, or</p>
+        <%= form.file_field :cover_image, class: "hidden", id: "cover_image_input", data: { testid: "cover_image_input" } %>
+        <button type="button" onclick="document.getElementById('cover_image_input').click()" class="text-blue-600 hover:text-blue-500" data-testid="cover_image_button">
           Choose File
         </button>
-        <p class="text-sm text-gray-500 mt-2">Supported formats: JPG, PNG. Max size: 5MB</p>
+        <p class="text-sm text-gray-500 mt-2" data-testid="cover_image_hint">Supported formats: JPG, PNG. Max size: 5MB</p>
       </div>
     </div>
   </div>
 
   <div class="mb-6">
-    <%= form.label :category_id, "Categories*", class: "block text-sm font-medium mb-2" %>
-    <div class="flex flex-wrap gap-2">
+    <%= form.label :category_id, "Categories*", class: "block text-sm font-medium mb-2", data: { testid: "category_label" } %>
+    <div class="flex flex-wrap gap-2" data-testid="category_options">
       <% Category.all.each do |category| %>
         <label class="inline-flex items-center">
-          <%= form.radio_button :category_id, category.id, class: "hidden peer" %>
+          <%= form.radio_button :category_id, category.id, class: "hidden peer", data: { testid: "category_#{category.id}_radio" } %>
           <span class="px-4 py-2 rounded-full cursor-pointer text-sm
             <%= category.id == post.category_id ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-600' %>
-            peer-checked:bg-blue-100 peer-checked:text-blue-600 hover:bg-gray-200 transition-colors">
+            peer-checked:bg-blue-100 peer-checked:text-blue-600 hover:bg-gray-200 transition-colors" data-testid="category_#{category.id}_label">
             <%= category.name %>
           </span>
         </label>
       <% end %>
-      <%= link_to "+ Add Category", new_category_path, class: "inline-flex items-center px-4 py-2 rounded-full text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" %>
+      <%= link_to "+ Add Category", new_category_path, class: "inline-flex items-center px-4 py-2 rounded-full text-sm bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors", data: { testid: "add_category_link" } %>
     </div>
   </div>
 
@@ -60,8 +60,9 @@
       input: ''
     }"
     x-init="console.log(tags)"
+    data-testid="tags_section"
   >
-    <%= form.label :tags, "Tags*", class: "block text-sm font-medium mb-2" %>
+    <%= form.label :tags, "Tags*", class: "block text-sm font-medium mb-2", data: { testid: "tags_label" } %>
     
     <div class="relative">
       <input type="text" 
@@ -71,41 +72,40 @@
         id="tags-input"
         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         placeholder="Enter tags, separated by commas"
+        data-testid="tags_input"
       />
 
-      <ul class="mt-2">
+      <ul class="mt-2" data-testid="tags_list">
         <template x-for="(tag, index) in tags" :key="index">
-          <li class="inline-block bg-blue-100 text-blue-600 rounded-full py-1 px-3 mr-2 mb-2 text-sm">
+          <li class="inline-block bg-blue-100 text-blue-600 rounded-full py-1 px-3 mr-2 mb-2 text-sm" data-testid="tag_item">
             <span x-text="tag"></span>
-            <button type="button" @click="tags.splice(index, 1)" class="ml-2 text-blue-500 hover:text-blue-700">x</button>
+            <button type="button" @click="tags.splice(index, 1)" class="ml-2 text-blue-500 hover:text-blue-700" data-testid="remove_tag_button">x</button>
           </li>
         </template>
       </ul>
 
       <template x-for="tag in tags" :key="tag">
-        <input type="hidden" name="post[tag_names][]" :value="tag">
+        <input type="hidden" name="post[tag_names][]" :value="tag" data-testid="hidden_tag_input">
       </template>
     </div>
     
-    <p class="text-sm text-gray-500 mt-2">Separate tags with commas. Press Enter to add a new tag.</p>
+    <p class="text-sm text-gray-500 mt-2" data-testid="tags_hint">Separate tags with commas. Press Enter to add a new tag.</p>
   </div>
 
-
-
   <div class="mb-6">
-    <%= form.label :content, "Content*", class: "block text-sm font-medium mb-2" %>
-    <%= form.text_area :content, class: "tinymce block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", data: { controller: "tinymce" } %>
+    <%= form.label :content, "Content*", class: "block text-sm font-medium mb-2", data: { testid: "content_label" } %>
+    <%= form.text_area :content, class: "tinymce block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", data: { controller: "tinymce", testid: "content_input" } %>
   </div>
 
   <div class="flex justify-between">
     <div class="flex gap-2">
-      <%= form.submit "Save Draft", class: "px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50", formaction: draft_posts_path if defined?(draft_posts_path) %>
-      <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50">Preview</button>
+      <%= form.submit "Save Draft", class: "px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50", formaction: draft_posts_path, data: { testid: "save_draft_button" } if defined?(draft_posts_path) %>
+      <button type="button" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50" data-testid="preview_button">Preview</button>
     </div>
-    <%= form.submit "Publish Article", class: "px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-500" %>
+    <%= form.submit "Publish Article", class: "px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-500", data: { testid: "publish_button" } %>
   </div>
 
-  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :user_id, value: current_user.id, data: { testid: "user_id_hidden" } %>
 <% end %>
 
 <%= tinymce_assets %>

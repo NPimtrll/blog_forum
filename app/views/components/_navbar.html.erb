@@ -2,13 +2,34 @@
   <div class="container mx-auto px-5 py-4 flex justify-between items-center">
     <%= link_to "Blog Forum", root_path, class: "text-xl font-bold text-blue-600 hover:text-blue-500" %>
 
-    <div class="space-x-4">
+    <div class="flex items-center space-x-4">
+      <div data-controller="search" class="relative flex items-center rounded-full bg-gray-100 px-4 py-2">
+      <input 
+        type="text" 
+        name="query"
+        placeholder="Search articles, authors, or tags..."
+        class="bg-transparent border-none focus:ring-0 text-sm w-64"
+        data-search-target="input"
+        data-action="input->search#search click@window->search#hideResults"
+      >
+      <button class="text-gray-500" type="button">
+        <i class="fas fa-search"></i>
+      </button>
+      <div data-search-target="results" class="absolute top-full left-0 w-full bg-white shadow-md hidden max-h-60 overflow-auto"></div>
+    </div>
+
+
       <%= link_to "Home", root_path, class: "text-gray-700 hover:text-blue-500 font-medium" %>
       
       <% if user_signed_in? %>
-        <span class="text-gray-700">ยินดีต้อนรับ, <%= current_user.email %>!</span>
-        <%= link_to "แก้ไขโปรไฟล์", edit_user_path(current_user), class: "text-blue-500 hover:text-blue-400" %>
-        <%= button_to "ออกจากระบบ", destroy_user_session_path, method: :delete, class: "text-red-500" %>
+        <div class="flex items-center space-x-2">
+          <span class="text-gray-700 text-sm">ยินดีต้อนรับ, <%= current_user.email %>!</span>
+          <%= link_to "แก้ไขโปรไฟล์", edit_user_path(current_user), class: "text-blue-500 hover:text-blue-400 text-sm" %>
+          <%= button_to "ออกจากระบบ", destroy_user_session_path, method: :delete, class: "text-red-500 text-sm" %>
+          <%= link_to new_post_path, class: "text-green-500 hover:text-green-400 p-2 rounded-full bg-green-100" do %>
+            <i class="fas fa-plus"></i>
+          <% end %>
+        </div>
       <% else %>
         <%= link_to "เข้าสู่ระบบ", new_user_session_path, class: "text-blue-500 hover:text-blue-400" %>
       <% end %>
