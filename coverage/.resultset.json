@@ -43,41 +43,6 @@
           null
         ]
       },
-      "/Users/stone4fimere/blog_forum/app/models/tag.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/Users/stone4fimere/blog_forum/app/models/application_record.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/Users/stone4fimere/blog_forum/app/models/post_tag.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
       "/Users/stone4fimere/blog_forum/app/models/post.rb": {
         "lines": [
           1,
@@ -93,6 +58,118 @@
           1,
           1,
           1,
+          null,
+          3,
+          3,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          14,
+          null,
+          2,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/stone4fimere/blog_forum/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/stone4fimere/blog_forum/app/models/user.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          7,
+          7,
+          null,
+          null,
+          1,
+          7,
+          0,
+          null,
+          null,
+          null,
+          1,
+          7,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/stone4fimere/blog_forum/app/models/category.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/Users/stone4fimere/blog_forum/app/models/post_tag.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/stone4fimere/blog_forum/app/models/tag.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          0,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          0,
+          null,
           null
         ]
       },
@@ -485,17 +562,6 @@
         ],
         "branches": {}
       },
-      "/Users/stone4fimere/blog_forum/app/models/category.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          null,
-          0,
-          0
-        ],
-        "branches": {}
-      },
       "/Users/stone4fimere/blog_forum/app/models/comment.rb": {
         "lines": [
           0,
@@ -541,61 +607,8 @@
           0
         ],
         "branches": {}
-      },
-      "/Users/stone4fimere/blog_forum/app/models/user.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
       }
     },
-    "timestamp": 1742890692
+    "timestamp": 1742891623
   }
 }

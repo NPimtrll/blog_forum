@@ -54,6 +54,7 @@ group :development, :test do
   gem "rspec-rails"
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "simplecov", require: false, git: "https://github.com/simplecov-ruby/simplecov"
 end
 
 group :development do
