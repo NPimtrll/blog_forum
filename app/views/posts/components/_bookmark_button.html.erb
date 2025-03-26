@@ -1,0 +1,21 @@
+<%# Bookmark button with Flowbite icons %>
+<div data-controller="bookmark">
+  <% if user_signed_in? %>
+    <% bookmark = current_user.bookmarks.find_by(post: post) %>
+    <%= form_with(url: bookmark ? post_bookmark_path(post, bookmark) : post_bookmarks_path(post),
+                method: bookmark ? :delete : :post,
+                data: { action: "submit->bookmark#toggle" }) do |f| %>
+      <button type="submit" class="<%= bookmark ? 'text-yellow-400 hover:text-yellow-500' : 'text-gray-400 hover:text-yellow-400' %> transition-colors duration-200">
+        <% if bookmark %>
+          <i class="fi fi-sr-bookmark text-xl"></i>
+        <% else %>
+          <i class="fi fi-rr-bookmark text-xl"></i>
+        <% end %>
+      </button>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, class: "text-gray-400 hover:text-yellow-400 transition-colors duration-200" do %>
+      <i class="fi fi-rr-bookmark text-xl"></i>
+    <% end %>
+  <% end %>
+</div> 

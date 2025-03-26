@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     end
     resources :likes, only: [ :create ]
     resources :comments, only: [ :create, :edit, :update, :destroy ]
+    resources :bookmarks, only: [ :create, :destroy ]
   end
 
   get "/tags/find_or_create", to: "tags#find_or_create"
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
   get "/popular", to: "posts#popular", as: "popular_posts"
   get "/latest", to: "posts#latest", as: "latest_posts"
   get "/search", to: "search#index", as: "search"
+  get "/bookmarks", to: "bookmarks#index", as: "bookmarks"
 
   root "posts#index"
 end

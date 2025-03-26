@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_follows, source: :follower
   has_one_attached :avatar
 
+  has_many :bookmarks
+  has_many :bookmarked_posts, through: :bookmarks, source: :post
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
