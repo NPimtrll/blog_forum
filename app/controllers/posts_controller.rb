@@ -104,8 +104,18 @@ class PostsController < ApplicationController
   end
 
   def tagged
-    @tag = Tag.find(params[:tag_id])
-    @posts = @tag.posts.includes(:user, :comments, :likes, :category)
+    @tag = if params[:tag_id]
+      Tag.find(params[:tag_id])
+    else
+      Tag.find_by(name: params[:tag])
+    end
+    
+    if @tag
+      @posts = @tag.posts.includes(:user, :comments, :likes, :category)
+    else
+      flash[:alert] = "ไม่พบหมวดหมู่ '#{params[:tag]}'"
+      redirect_to root_path
+    end
   end
 
   private

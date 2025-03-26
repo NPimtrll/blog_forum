@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get "/popular", to: "posts#popular", as: "popular_posts"
   get "/latest", to: "posts#latest", as: "latest_posts"
+  get "/search", to: "search#index", as: "search"
 
   root "posts#index"
 end

@@ -4,20 +4,22 @@
 
     <div class="flex items-center space-x-4">
       <div data-controller="search" class="relative flex items-center rounded-full bg-gray-100 px-4 py-2">
-      <input 
-        type="text" 
-        name="query"
-        placeholder="Search articles, authors, or tags..."
-        class="bg-transparent border-none focus:ring-0 text-sm w-64"
-        data-search-target="input"
-        data-action="input->search#search click@window->search#hideResults"
-      >
-      <button class="text-gray-500" type="button">
-        <i class="fas fa-search"></i>
-      </button>
-      <div data-search-target="results" class="absolute top-full left-0 w-full bg-white shadow-md hidden max-h-60 overflow-auto"></div>
-    </div>
-
+        <%= form_tag search_path, method: :get, class: "flex items-center", data: { turbo: false } do %>
+          <input 
+            type="text" 
+            name="query"
+            placeholder="Search articles, authors, or tags..."
+            class="bg-transparent border-none focus:ring-0 text-sm w-64"
+            data-search-target="input"
+            data-action="input->search#search click@window->search#hideResults"
+            value="<%= params[:query] %>"
+          >
+          <button type="submit" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-search"></i>
+          </button>
+        <% end %>
+        <div id="search_results" data-search-target="results" class="absolute top-full left-0 w-full bg-white shadow-md hidden max-h-60 overflow-auto z-50"></div>
+      </div>
 
       <%= link_to "Home", root_path, class: "text-gray-700 hover:text-blue-500 font-medium" %>
       

@@ -1,0 +1,46 @@
+<div class="container mx-auto px-5 py-8">
+  <h1 class="text-2xl font-bold mb-6">ผลการค้นหา: <%= @query %></h1>
+
+  <% if @posts.any? %>
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">บทความที่เกี่ยวข้อง</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <% @posts.each do |post| %>
+          <%= render "posts/components/article_card", post: post %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @category_posts.any? %>
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">บทความจากหมวดหมู่ที่เกี่ยวข้อง</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <% @category_posts.each do |post| %>
+          <%= render "posts/components/article_card", post: post %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @categories.any? %>
+    <div>
+      <h2 class="text-xl font-semibold mb-4">หมวดหมู่ที่เกี่ยวข้อง</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <% @categories.each do |tag| %>
+          <div class="bg-white rounded-lg shadow-md p-4">
+            <%= link_to tagged_posts_path(tag: tag.name), class: "text-lg font-semibold text-blue-600 hover:text-blue-500" do %>
+              #<%= tag.name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @posts.empty? && @category_posts.empty? && @categories.empty? %>
+    <div class="text-center py-8">
+      <p class="text-gray-500">ไม่พบผลลัพธ์ที่เกี่ยวข้อง</p>
+    </div>
+  <% end %>
+</div> 
