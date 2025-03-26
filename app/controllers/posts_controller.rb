@@ -9,9 +9,21 @@ class PostsController < ApplicationController
       # ถ้ามีคำค้นหาให้แสดงผลลัพธ์การค้นหา
       @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
     else
-      # ถ้าไม่มีคำค้นหาแสดงโพสต์ทั้งหมดตามปกติ
-      @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
+      # ถ้าไม่มีคำค้นหาแสดงโพสต์ตาม filter หรือถ้าไม่มี filter ให้แสดงโพสต์ของสัปดาห์นี้
+      filter = params[:filter] || 'this_week'
+      @posts = case filter
+        when 'today'
+          Post.where('created_at >= ?', Time.current.beginning_of_day)
+        when 'this_week'
+          Post.where('created_at >= ?', Time.current.beginning_of_week)
+        when 'this_month'
+          Post.where('created_at >= ?', Time.current.beginning_of_month)
+        else
+          Post.all
+      end
     end
+
+    @posts = @posts.includes(:user, :comments, :likes, :category).order(created_at: :desc)
     @popular_posts = Post.order(views: :desc).limit(2)
     @latest_posts = case params[:filter]
     when "today"
@@ -21,7 +33,7 @@ class PostsController < ApplicationController
     when "this_month"
                       Post.where("created_at >= ?", Time.zone.now.beginning_of_month)
     else
-                      Post.all
+                      Post.where("created_at >= ?", Time.zone.now.beginning_of_week)
     end
     @latest_limit_posts = @latest_posts.order(created_at: :desc).limit(2)
     @head_posts = Post.order(created_at: :desc).limit(5)
