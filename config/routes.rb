@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :categories, only: [ :new, :create ]
+  resources :categories, only: [ :new, :create, :show ]
   post "tinymce_assets", to: "tinymce_assets#create"
   devise_for :users
   resources :users, only: [ :show, :edit, :update ] do
