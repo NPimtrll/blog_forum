@@ -9,15 +9,15 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # ตรวจสอบว่าผู้ใช้กำลังแก้ไขโปรไฟล์ตัวเอง
     unless @user == current_user
       redirect_to root_path, alert: "คุณไม่มีสิทธิ์แก้ไขโปรไฟล์ของผู้ใช้อื่น"
     end
   end
 
   def update
-    # ป้องกันไม่ให้ผู้ใช้แก้ไข email โดยตรง
     filtered_params = user_params.except(:email)
+
+    filtered_params = filtered_params.except(:role) unless @user == current_user
 
     if @user.update(filtered_params)
       redirect_to @user, notice: "อัปเดตโปรไฟล์สำเร็จ!"
