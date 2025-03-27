@@ -73,7 +73,7 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
-gem "tinymce-rails", "~> 6.8"
+gem "tinymce-rails", "~> 7.7"
 
 # Load environment variables from .env file
 gem 'dotenv-rails', groups: [:development, :test]
