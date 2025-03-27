@@ -151,4 +151,4 @@ RSpec.describe Post, type: :model do
       expect(post.views).to eq(0)
     end
   end
-end 
+end

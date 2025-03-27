@@ -41,7 +41,7 @@ gem "thruster", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Environment variables
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw jruby ], require: "debug/prelude"

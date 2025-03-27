@@ -6,7 +6,7 @@ class Tag < ApplicationRecord
 
   def self.trending(limit = 5)
     joins(:posts)
-      .group('tags.id')
+      .group("tags.id")
       .order(Arel.sql("COUNT(posts.id) DESC"))
       .limit(limit)
       .select("tags.*, COUNT(posts.id) as post_count")

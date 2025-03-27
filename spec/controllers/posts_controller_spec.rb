@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe PostsController, type: :controller do
   let(:user) { create(:user) }
   let(:category) { create(:category) }
-  let(:valid_attributes) { 
-    { 
+  let(:valid_attributes) {
+    {
       title: "Test Post",
       content: "Test Content",
       excerpt: "Test Excerpt",
       category_id: category.id,
-      tag_names: ["tag1", "tag2"]
+      tag_names: [ "tag1", "tag2" ]
     }
   }
 
@@ -86,7 +86,7 @@ RSpec.describe PostsController, type: :controller do
 
       it 'creates tags for the post' do
         post :create, params: { post: valid_attributes }
-        expect(Post.last.tags.map(&:name)).to match_array(["tag1", "tag2"])
+        expect(Post.last.tags.map(&:name)).to match_array([ "tag1", "tag2" ])
       end
 
       it 'redirects to the created post' do
@@ -164,7 +164,7 @@ RSpec.describe PostsController, type: :controller do
       post1 = create(:post, views: 10)
       post2 = create(:post, views: 20)
       get :popular
-      expect(assigns(:posts)).to eq([post2, post1])
+      expect(assigns(:posts)).to eq([ post2, post1 ])
     end
   end
 
@@ -181,7 +181,7 @@ RSpec.describe PostsController, type: :controller do
         post1 = create(:post, created_at: 1.day.ago)
         post2 = create(:post, created_at: Time.current)
         get :latest
-        expect(assigns(:posts)).to eq([post2, post1])
+        expect(assigns(:posts)).to eq([ post2, post1 ])
       end
     end
 
@@ -222,4 +222,4 @@ RSpec.describe PostsController, type: :controller do
       end
     end
   end
-end 
+end

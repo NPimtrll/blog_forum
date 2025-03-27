@@ -27,9 +27,9 @@ RSpec.describe TagsController, type: :controller do
     it 'returns trending tags' do
       tag1 = create(:tag, name: "tag1")
       tag2 = create(:tag, name: "tag2")
-      create(:post, tags: [tag1])
-      create(:post, tags: [tag1])
-      create(:post, tags: [tag2])
+      create(:post, tags: [ tag1 ])
+      create(:post, tags: [ tag1 ])
+      create(:post, tags: [ tag2 ])
 
       get :trending
       expect(response).to have_http_status(:success)
@@ -37,4 +37,4 @@ RSpec.describe TagsController, type: :controller do
       expect(JSON.parse(response.body).first["name"]).to eq("tag1")
     end
   end
-end 
+end

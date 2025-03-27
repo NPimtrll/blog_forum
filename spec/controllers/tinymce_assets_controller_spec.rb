@@ -44,4 +44,4 @@ RSpec.describe TinymceAssetsController, type: :controller do
       end
     end
   end
-end 
+end

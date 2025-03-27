@@ -1,6 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_bookmark, only: [:destroy]
+  before_action :set_bookmark, only: [ :destroy ]
 
   def index
     @bookmarked_posts = current_user.bookmarked_posts.includes(:user, :category).order(created_at: :desc)
@@ -35,4 +35,4 @@ class BookmarksController < ApplicationController
   def set_bookmark
     @bookmark = current_user.bookmarks.find(params[:id])
   end
-end 
+end

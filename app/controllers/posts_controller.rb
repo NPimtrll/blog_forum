@@ -116,7 +116,7 @@ class PostsController < ApplicationController
     else
       Tag.find_by(name: params[:tag])
     end
-    
+
     if @tag
       @posts = @tag.posts.includes(:user, :comments, :likes, :category)
     else

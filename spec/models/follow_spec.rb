@@ -31,6 +31,5 @@ RSpec.describe Follow, type: :model do
       expect(follow).to_not be_valid
       expect(follow.errors[:following]).to include("must exist")
     end
-
   end
-end 
+end

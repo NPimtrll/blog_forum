@@ -7,4 +7,4 @@ RSpec.describe Image, type: :model do
       expect(image).to be_valid
     end
   end
-end 
+end

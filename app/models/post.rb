@@ -23,7 +23,7 @@ class Post < ApplicationRecord
     return unless cover_image.attached?
 
     unless cover_image.blob.content_type.in?(%w[image/jpeg image/png])
-      errors.add(:cover_image, 'ต้องเป็นไฟล์ PNG หรือ JPG เท่านั้น')
+      errors.add(:cover_image, "ต้องเป็นไฟล์ PNG หรือ JPG เท่านั้น")
     end
   end
 end

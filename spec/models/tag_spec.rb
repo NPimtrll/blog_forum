@@ -61,4 +61,4 @@ RSpec.describe Tag, type: :model do
       expect(trending_tag.post_count).to eq(trending_tag[:post_count])
     end
   end
-end 
+end

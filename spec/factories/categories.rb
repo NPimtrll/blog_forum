@@ -3,4 +3,4 @@ FactoryBot.define do
     sequence(:name) { |n| "Category #{n}" }
     description { "A test category description" }
   end
-end 
+end

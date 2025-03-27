@@ -65,4 +65,4 @@ RSpec.describe FollowsController, type: :controller do
       end
     end
   end
-end 
+end

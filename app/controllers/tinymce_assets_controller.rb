@@ -7,7 +7,7 @@ class TinymceAssetsController < ApplicationController
       return
     end
 
-    unless params[:file].content_type.start_with?('image/')
+    unless params[:file].content_type.start_with?("image/")
       render json: { error: "Invalid file type. Only images are allowed." }, status: :unprocessable_entity
       return
     end

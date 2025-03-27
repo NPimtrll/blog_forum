@@ -3,4 +3,4 @@ FactoryBot.define do
     follower { create(:user) }
     following { create(:user) }
   end
-end 
+end

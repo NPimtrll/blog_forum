@@ -32,7 +32,7 @@ RSpec.describe UsersController, type: :controller do
       post1 = create(:post, user: user, created_at: 1.day.ago)
       post2 = create(:post, user: user, created_at: 2.days.ago)
       get :show, params: { id: user.id }
-      expect(assigns(:all_posts)).to eq([post1, post2])
+      expect(assigns(:all_posts)).to eq([ post1, post2 ])
     end
   end
 
@@ -93,4 +93,4 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
-end 
+end

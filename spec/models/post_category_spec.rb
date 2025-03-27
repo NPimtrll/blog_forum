@@ -30,4 +30,4 @@ RSpec.describe PostCategory, type: :model do
       expect(post_category.errors[:category]).to include("must exist")
     end
   end
-end 
+end
