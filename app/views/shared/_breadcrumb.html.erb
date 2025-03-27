@@ -4,12 +4,15 @@
     <% if current_page?(new_post_path) %>
       <span class="mx-2">/</span>
       <span class="text-gray-800">New Article</span>
+    <% elsif current_page?(bookmarks_path) %>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800">Bookmarks</span>
     <% end %>
   <% else %>
     <%= link_to "Home", root_path, class: "hover:text-blue-600" %>
     <% if post.category.present? %>
       <span class="mx-2">/</span>
-      <%= link_to post.category.name, posts_path(category: post.category.id), class: "hover:text-blue-600" %>
+      <%= link_to post.category.name, category_path(post.category), class: "hover:text-blue-600" %>
     <% end %>
     <span class="mx-2">/</span>
     <%= link_to post.title, post_path(post), class: "hover:text-blue-600" %>
