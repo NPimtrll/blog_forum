@@ -7,6 +7,9 @@
     <% elsif current_page?(bookmarks_path) %>
       <span class="mx-2">/</span>
       <span class="text-gray-800">Bookmarks</span>
+    <% elsif current_page?(category_path(@category)) %>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800"><%= @category.name %></span>
     <% end %>
   <% else %>
     <%= link_to "Home", root_path, class: "hover:text-blue-600" %>
