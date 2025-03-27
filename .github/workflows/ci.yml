@@ -21,10 +21,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install bundler
-          bundle config set --local frozen false
-          bundle config set --local without 'development'
-          bundle install --jobs 4 --retry 3
+          gem install bundler -v 2.5.23
+          bundle _2.5.23_ config set --local frozen false
+          bundle _2.5.23_ config set --local without 'development'
+          bundle _2.5.23_ install --jobs 4 --retry 3
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
@@ -44,10 +44,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install bundler
-          bundle config set --local frozen false
-          bundle config set --local without 'development'
-          bundle install --jobs 4 --retry 3
+          gem install bundler -v 2.5.23
+          bundle _2.5.23_ config set --local frozen false
+          bundle _2.5.23_ config set --local without 'development'
+          bundle _2.5.23_ install --jobs 4 --retry 3
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -66,10 +66,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install bundler
-          bundle config set --local frozen false
-          bundle config set --local without 'development'
-          bundle install --jobs 4 --retry 3
+          gem install bundler -v 2.5.23
+          bundle _2.5.23_ config set --local frozen false
+          bundle _2.5.23_ config set --local without 'development'
+          bundle _2.5.23_ install --jobs 4 --retry 3
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
@@ -77,12 +77,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: redis
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git pkg-config google-chrome-stable
@@ -98,15 +92,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          gem install bundler
-          bundle config set --local frozen false
-          bundle config set --local without 'development'
-          bundle install --jobs 4 --retry 3
+          gem install bundler -v 2.5.23
+          bundle _2.5.23_ config set --local frozen false
+          bundle _2.5.23_ config set --local without 'development'
+          bundle _2.5.23_ install --jobs 4 --retry 3
 
       - name: Run tests
         env:
           RAILS_ENV: test
-          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test test:system
 
       - name: Keep screenshots from failed system tests
