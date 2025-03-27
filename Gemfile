@@ -68,7 +68,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "factory_bot_rails"
-  gem "simplecov", require: false,  git: "https://github.com/simplecov-ruby/simplecov"
+  gem "simplecov", require: false, git: "https://github.com/simplecov-ruby/simplecov"
 end
 
 gem "devise", "~> 4.9"
