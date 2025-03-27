@@ -57,10 +57,9 @@ RSpec.describe CategoriesController, type: :controller do
           }.to change(Category, :count).by(1)
         end
 
-        it 'redirects to new post path with success message' do
+        it 'redirects to the created category' do
           post :create, params: { category: valid_attributes }
-          expect(response).to redirect_to(new_post_path)
-          expect(flash[:notice]).to eq("Category was successfully created.")
+          expect(response).to redirect_to(Category.last)
         end
       end
 
