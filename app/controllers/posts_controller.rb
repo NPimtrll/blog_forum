@@ -5,25 +5,20 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    if params[:query].present?
-      # ถ้ามีคำค้นหาให้แสดงผลลัพธ์การค้นหา
-      @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
-    else
-      # ถ้าไม่มีคำค้นหาแสดงโพสต์ตาม filter หรือถ้าไม่มี filter ให้แสดงโพสต์ของสัปดาห์นี้
-      filter = params[:filter] || 'this_week'
-      @posts = case filter
-        when 'today'
-          Post.where('created_at >= ?', Time.current.beginning_of_day)
-        when 'this_week'
-          Post.where('created_at >= ?', Time.current.beginning_of_week)
-        when 'this_month'
-          Post.where('created_at >= ?', Time.current.beginning_of_month)
-        else
-          Post.all
-      end
+    @posts = Post.includes(:user, :category)
+                .order(created_at: :desc)
+                .page(params[:page])
+                .per(10)
+
+    case params[:filter]
+    when "popular"
+      @posts = @posts.order(views: :desc)
+    when "trending"
+      @posts = @posts.order(created_at: :desc)
+    when "latest"
+      @posts = @posts.order(created_at: :desc)
     end
 
-    @posts = @posts.includes(:user, :comments, :likes, :category).order(created_at: :desc)
     @popular_posts = Post.order(views: :desc).limit(2)
     @latest_posts = case params[:filter]
     when "today"

@@ -1,38 +1,38 @@
 class BookmarksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post, only: [:create, :destroy]
+  before_action :set_bookmark, only: [:destroy]
 
   def index
     @bookmarked_posts = current_user.bookmarked_posts.includes(:user, :category).order(created_at: :desc)
   end
 
   def create
+    @post = Post.find(params[:post_id])
     @bookmark = current_user.bookmarks.build(post: @post)
 
-    respond_to do |format|
-      if @bookmark.save
-        format.html { redirect_back(fallback_location: root_path, notice: 'Post was successfully bookmarked.') }
-        format.json { render json: { status: :created } }
-      else
-        format.html { redirect_back(fallback_location: root_path, alert: 'Could not bookmark the post.') }
-        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
+    if @bookmark.save
+      respond_to do |format|
+        format.html { redirect_to @post, notice: "บันทึกโพสต์เรียบร้อยแล้ว" }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to @post, alert: "ไม่สามารถบันทึกโพสต์ได้" }
       end
     end
   end
 
   def destroy
-    @bookmark = current_user.bookmarks.find_by(post: @post)
-    @bookmark.destroy if @bookmark
+    @post = @bookmark.post
+    @bookmark.destroy
 
     respond_to do |format|
-      format.html { redirect_back(fallback_location: root_path, notice: 'Bookmark was successfully removed.') }
-      format.json { head :no_content }
+      format.html { redirect_to @post, notice: "ลบการบันทึกโพสต์เรียบร้อยแล้ว" }
     end
   end
 
   private
 
-  def set_post
-    @post = Post.find(params[:post_id])
+  def set_bookmark
+    @bookmark = current_user.bookmarks.find(params[:id])
   end
 end 
