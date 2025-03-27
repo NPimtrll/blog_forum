@@ -17,7 +17,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+          bundler-cache: false
 
       - name: Unfreeze Bundler
         run: bundle config set frozen false
@@ -39,7 +39,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+          bundler-cache: false 
 
       - name: Unfreeze Bundler
         run: bundle config set frozen false
@@ -60,7 +60,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+          bundler-cache: false 
 
       - name: Unfreeze Bundler
         run: bundle config set frozen false
@@ -85,7 +85,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+          bundler-cache: false 
 
       - name: Unfreeze Bundler
         run: bundle config set frozen false
