@@ -17,14 +17,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+
+      - name: Unfreeze Bundler
+        run: bundle config set frozen false
 
       - name: Install dependencies
-        run: |
-          gem install bundler -v 2.5.23
-          bundle _2.5.23_ config set --local frozen false
-          bundle _2.5.23_ config set --local without 'development'
-          bundle _2.5.23_ install --jobs 4 --retry 3
+        run: bundle install
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
@@ -40,14 +39,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+
+      - name: Unfreeze Bundler
+        run: bundle config set frozen false
 
       - name: Install dependencies
-        run: |
-          gem install bundler -v 2.5.23
-          bundle _2.5.23_ config set --local frozen false
-          bundle _2.5.23_ config set --local without 'development'
-          bundle _2.5.23_ install --jobs 4 --retry 3
+        run: bundle install
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -62,14 +60,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+
+      - name: Unfreeze Bundler
+        run: bundle config set frozen false
 
       - name: Install dependencies
-        run: |
-          gem install bundler -v 2.5.23
-          bundle _2.5.23_ config set --local frozen false
-          bundle _2.5.23_ config set --local without 'development'
-          bundle _2.5.23_ install --jobs 4 --retry 3
+        run: bundle install
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
@@ -88,14 +85,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: false  # ปิด cache ป้องกัน frozen mode
+
+      - name: Unfreeze Bundler
+        run: bundle config set frozen false
 
       - name: Install dependencies
-        run: |
-          gem install bundler -v 2.5.23
-          bundle _2.5.23_ config set --local frozen false
-          bundle _2.5.23_ config set --local without 'development'
-          bundle _2.5.23_ install --jobs 4 --retry 3
+        run: bundle install
 
       - name: Run tests
         env:
