@@ -15,9 +15,13 @@ class UsersController < ApplicationController
   end
 
   def update
+    # ป้องกันไม่ให้ผู้ใช้แก้ไข email โดยตรง
     filtered_params = user_params.except(:email)
 
-    filtered_params = filtered_params.except(:role) unless @user == current_user
+    if @user == current_user && params[:user][:role].present?
+      # ถ้าเป็นเจ้าของโปรไฟล์และมีการส่ง role มาด้วย
+      @user.role = params[:user][:role]
+    end
 
     if @user.update(filtered_params)
       redirect_to @user, notice: "อัปเดตโปรไฟล์สำเร็จ!"
@@ -35,6 +39,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :full_name, :avatar, :about_me,
                                  :twitter_url, :linkedin_url, :github_url,
-                                 :email_notifications, :profile_privacy, :role)
+                                 :email_notifications, :profile_privacy)
   end
 end
