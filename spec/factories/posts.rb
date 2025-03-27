@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
     title { "Test Post" }
-    content { "This is a test post content" }
+    content { "Test Content" }
     excerpt { "This is a test excerpt" }
     views { 0 }
     published_at { Time.current }

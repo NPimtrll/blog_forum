@@ -379,6 +379,43 @@
           null
         ]
       },
+      "/Users/stone4fimere/blog_forum/app/controllers/search_controller.rb": {
+        "lines": [
+          1,
+          1,
+          10,
+          10,
+          null,
+          8,
+          null,
+          null,
+          null,
+          null,
+          null,
+          8,
+          null,
+          null,
+          null,
+          null,
+          8,
+          null,
+          null,
+          null,
+          null,
+          8,
+          8,
+          8,
+          4,
+          4,
+          4,
+          4,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
       "/Users/stone4fimere/blog_forum/app/controllers/tags_controller.rb": {
         "lines": [
           1,
@@ -532,7 +569,7 @@
           1,
           null,
           1,
-          86,
+          96,
           null,
           3,
           1,
@@ -600,18 +637,18 @@
           1,
           null,
           1,
-          127,
-          127,
+          147,
+          147,
           null,
           null,
           1,
-          139,
+          159,
           1,
           null,
           null,
           null,
           1,
-          139,
+          159,
           0,
           null,
           null,
@@ -696,44 +733,6 @@
         ],
         "branches": {}
       },
-      "/Users/stone4fimere/blog_forum/app/controllers/search_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
       "/Users/stone4fimere/blog_forum/app/jobs/application_job.rb": {
         "lines": [
           0,
@@ -756,6 +755,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1743069860
+    "timestamp": 1743072873
   }
 }
