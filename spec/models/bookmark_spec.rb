@@ -21,11 +21,11 @@ RSpec.describe Bookmark, type: :model do
   describe "uniqueness validation" do
     let(:user) { create(:user) }
     let(:post) { create(:post) }
-    
+
     it "should not allow duplicate bookmarks" do
       create(:bookmark, user: user, post: post)
       duplicate_bookmark = build(:bookmark, user: user, post: post)
-      
+
       expect(duplicate_bookmark).not_to be_valid
       expect(duplicate_bookmark.errors[:user_id]).to include("has already been taken")
     end
