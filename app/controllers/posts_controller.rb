@@ -5,6 +5,12 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
+    if params[:query].present?
+      @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    else
+      @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
+    end
+
     @posts = Post.includes(:user, :category)
                 .order(created_at: :desc)
                 .page(params[:page])
