@@ -46,7 +46,7 @@ gem "dotenv-rails", groups: [ :development, :test ]
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw jruby ], require: "debug/prelude"
   gem "faker"
-  gem "brakeman", require: false
+  gem "brakeman", "~> 7.0.2", require: false
   gem "rspec-rails"
   gem "rubocop-rails-omakase", require: false
   gem "shoulda-matchers"
