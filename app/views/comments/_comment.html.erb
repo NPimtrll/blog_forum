@@ -1,14 +1,84 @@
-<div id="<%= dom_id comment %>" class="my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Post:</strong>
-    <%= comment.post_id %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= comment.user %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Content:</strong>
-    <%= comment.content %>
+<div id="<%= dom_id comment %>" class="my-5 relative" x-data="{ showReplyForm: false }">
+  <div class="flex space-x-4">
+    <div class="relative">
+      <% if comment.user.avatar.attached? %>
+        <%= link_to user_path(comment.user) do %>
+          <%= image_tag url_for(comment.user.avatar), class: "w-10 h-10 rounded-full" %>
+        <% end %>
+      <% else %>
+        <%= link_to user_path(comment.user) do %>
+          <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="flex-grow">
+      <div class="bg-gray-50 rounded-lg p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div>
+            <span class="font-medium text-gray-900"><%= comment.user.username %></span>
+            <span class="text-gray-500 text-sm ml-2"><%= time_ago_in_words(comment.created_at) %> ago</span>
+          </div>
+          <% if comment.user == current_user %>
+            <div class="flex items-center space-x-2">
+              <%= link_to "Edit", edit_post_comment_path(post, comment), class: "text-sm text-gray-500 hover:text-gray-700" %>
+              <%= button_to "Delete", post_comment_path(post, comment), method: :delete, class: "text-sm text-red-500 hover:text-red-700", data: { confirm: "Are you sure?" } %>
+            </div>
+          <% end %>
+        </div>
+        <p class="text-gray-700">
+          <% if comment.parent_id.present? %>
+            <span class="text-blue-600">@<%= comment.parent.user.username %></span>
+          <% end %>
+          <%= comment.content %>
+        </p>
+        <% if user_signed_in? && (!comment.parent_id.present? || comment.parent.parent_id.nil?) %>
+          <div class="mt-2">
+            <button @click="showReplyForm = !showReplyForm" class="text-sm text-blue-500 hover:text-blue-700">
+              Reply
+            </button>
+          </div>
+        <% end %>
+      </div>
+
+      <% if user_signed_in? && (!comment.parent_id.present? || comment.parent.parent_id.nil?) %>
+        <div x-show="showReplyForm" x-transition class="mt-4 ml-8">
+          <div class="bg-white p-4 rounded-lg shadow">
+            <%= form_with(model: [post, Comment.new], class: "space-y-4") do |form| %>
+              <div class="flex space-x-4">
+                <% if current_user&.avatar&.attached? %>
+                  <%= image_tag url_for(current_user.avatar), class: "w-10 h-10 rounded-full" %>
+                <% else %>
+                  <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full" %>
+                <% end %>
+                <div class="flex-grow">
+                  <%= form.text_area :content, rows: 3, 
+                      class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", 
+                      placeholder: "Write a reply...",
+                      value: "@#{comment.user.username} " %>
+                </div>
+              </div>
+
+              <%= form.hidden_field :parent_id, value: comment.id %>
+
+              <div class="flex justify-end space-x-2">
+                <button type="button" @click="showReplyForm = false" class="px-4 py-2 text-gray-600 hover:text-gray-800">
+                  Cancel
+                </button>
+                <%= form.submit "Post Reply", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if comment.replies.any? %>
+        <div class="ml-8 mt-4 space-y-4">
+          <% comment.replies.each do |reply| %>
+            <%= render "comments/comment", comment: reply, post: post %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

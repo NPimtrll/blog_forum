@@ -16,6 +16,7 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+    @post = Post.find(params[:post_id])
   end
 
   # GET /comments/1/edit
@@ -27,6 +28,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
+    @comment.parent_id = params[:parent_id] if params[:parent_id].present?
 
     if @comment.save
       redirect_to @post, notice: "Comment was successfully created."
@@ -65,6 +67,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:content)
+      params.require(:comment).permit(:content, :parent_id)
     end
 end
