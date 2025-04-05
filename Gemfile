@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 # Core gems
 gem "rails", "~> 8.0.1"
-gem "sqlite3", ">= 2.1"
 gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 
@@ -44,6 +43,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "dotenv-rails", groups: [ :development, :test ]
 
 group :development, :test do
+  gem "sqlite3", ">= 2.1"
   gem "debug", platforms: %i[ mri mingw x64_mingw jruby ], require: "debug/prelude"
   gem "faker"
   gem "brakeman", "~> 7.0.2", require: false
@@ -55,6 +55,10 @@ end
 
 group :development do
   gem "web-console"
+end
+
+group :production do
+  gem "pg", "~> 1.5"
 end
 
 group :test do
