@@ -42,8 +42,9 @@ COPY Gemfile Gemfile.lock ./
 # Install gems with proper dependency resolution
 RUN bundle config set --local deployment 'true' && \
     bundle config set --local without 'development:test' && \
+    bundle config set --local path "${BUNDLE_PATH}" && \
+    bundle lock --add-platform x86_64-linux && \
     bundle install --jobs 20 --retry 5 && \
-    bundle exec rails runner "Bundler.setup" && \
     bundle clean --force && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 

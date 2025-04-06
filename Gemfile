@@ -9,7 +9,7 @@ gem "bootsnap", require: false
 gem "net-smtp", "~> 0.4.0", require: false
 gem "net-imap", "~> 0.4.9", require: false
 gem "net-pop", "~> 0.1.2", require: false
-gem "net-protocol", "~> 0.2.2"
+gem "net-protocol"
 
 # Frontend gems
 gem "font-awesome-sass", "~> 6.0"
