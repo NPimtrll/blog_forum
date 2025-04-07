@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 
-# Remove a potentially pre-existing server.pid for Rails.
-rm -f /rails/tmp/pids/server.pid
+# Write RAILS_MASTER_KEY to config/master.key if it doesn't exist
+if [ -n "$RAILS_MASTER_KEY" ] && [ ! -f config/master.key ]; then
+    echo "$RAILS_MASTER_KEY" > config/master.key
+fi
 
-# Run database migrations
+rm -f /rails/tmp/pids/server.pid
 bundle exec rails db:migrate
 
-# Then exec the container's main process (what's set as CMD in the Dockerfile).
-exec "$@" 
+exec "$@"
