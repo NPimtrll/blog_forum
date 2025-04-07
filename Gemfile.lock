@@ -5,6 +5,13 @@ GIT
     net-pop (0.1.2)
 
 GIT
+  remote: https://github.com/ruby/net-protocol.git
+  revision: 0d0c9f372b7e571c9b446caead6af8f9386cb3ef
+  specs:
+    net-protocol (0.2.2)
+      timeout
+
+GIT
   remote: https://github.com/simplecov-ruby/simplecov
   revision: ce45fa65808a4811074f818f15df0d83d04b5185
   specs:
@@ -200,8 +207,6 @@ GEM
     net-imap (0.4.19)
       date
       net-protocol
-    net-protocol (0.2.2)
-      timeout
     net-smtp (0.4.0.1)
     nio4r (2.7.4)
     nokogiri (1.18.7-aarch64-linux-gnu)
@@ -437,10 +442,8 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
-  net-imap (~> 0.4.9)
   net-pop!
-  net-protocol (>= 0.2.2)
-  net-smtp (~> 0.4.0)
+  net-protocol!
   pg (~> 1.5)
   propshaft
   puma (>= 5.0)

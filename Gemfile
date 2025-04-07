@@ -6,10 +6,9 @@ gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 
 # Network gems
-gem "net-smtp", "~> 0.4.0"
-gem "net-imap", "~> 0.4.9"
+
 gem "net-pop", github: "ruby/net-pop"
-gem "net-protocol", ">= 0.2.2"
+gem "net-protocol", github: "ruby/net-protocol"
 
 # Frontend gems
 gem "font-awesome-sass", "~> 6.0"
