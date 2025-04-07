@@ -6,7 +6,8 @@ gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 
 # Network gems
-
+gem "net-smtp", github: "ruby/net-smtp"
+gem "net-imap", github: "ruby/net-imap"
 gem "net-pop", github: "ruby/net-pop"
 gem "net-protocol", github: "ruby/net-protocol"
 
