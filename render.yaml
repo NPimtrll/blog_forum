@@ -16,10 +16,6 @@ services:
           name: blog-forum-db
           property: connectionString
     plan: free
-    disk:
-      name: blog-forum-disk
-      mountPath: /rails/storage
-      sizeGB: 1
 
 databases:
   - name: blog-forum-db
