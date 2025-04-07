@@ -8,7 +8,7 @@ gem "bootsnap", require: false
 # Network gems
 gem "net-smtp", "~> 0.4.0"
 gem "net-imap", "~> 0.4.9"
-gem "net-pop", "~> 0.1.2"
+gem "net-pop", github: "ruby/net-pop"
 gem "net-protocol", ">= 0.2.2"
 
 # Frontend gems
