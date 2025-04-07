@@ -34,8 +34,3 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  database: <%= ENV.fetch("POSTGRES_DB", "blog_forum_production") %>
-  username: <%= ENV.fetch("POSTGRES_USER", "blog_forum") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
-  host: <%= ENV.fetch("POSTGRES_HOST", "dpg-cvpti66uk2gs73e8qhig-a.oregon-postgres.render.com") %>
-  port: <%= ENV.fetch("POSTGRES_PORT", "5432") %>
