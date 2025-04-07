@@ -35,8 +35,7 @@ gem "solid_queue"
 gem "solid_cable"
 
 # Database
-gem "pg", "~> 1.5", group: :production
-gem "sqlite3", "~> 1.4", group: [:development, :test]
+gem "pg", "~> 1.5"
 
 # Windows compatibility
 gem "tzinfo-data", platforms: %i[ windows jruby ]

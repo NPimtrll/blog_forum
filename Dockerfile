@@ -27,8 +27,7 @@ RUN apt-get update -qq && \
     libpq-dev \
     libvips \
     pkg-config \
-    postgresql-client \
-    sqlite3 && \
+    postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
