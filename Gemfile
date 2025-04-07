@@ -6,10 +6,10 @@ gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 
 # Network gems
-gem "net-smtp", "~> 0.4.0", require: false
-gem "net-imap", "~> 0.4.9", require: false
-gem "net-pop", "~> 0.1.2", require: false
-gem "net-protocol"
+gem "net-smtp", "~> 0.4.0"
+gem "net-imap", "~> 0.4.9"
+gem "net-pop", "~> 0.1.2"
+gem "net-protocol", ">= 0.2.2"
 
 # Frontend gems
 gem "font-awesome-sass", "~> 6.0"
@@ -34,9 +34,9 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
-# Deployment
-gem "kamal", require: false
-gem "thruster", require: false
+# Database
+gem "pg", "~> 1.5", group: :production
+gem "sqlite3", "~> 1.4", group: [:development, :test]
 
 # Windows compatibility
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -45,7 +45,6 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "dotenv-rails", groups: [ :development, :test ]
 
 group :development, :test do
-  gem "sqlite3", ">= 2.1"
   gem "debug", platforms: %i[ mri mingw x64_mingw jruby ], require: "debug/prelude"
   gem "faker"
   gem "brakeman", "~> 7.0.2", require: false
@@ -57,10 +56,6 @@ end
 
 group :development do
   gem "web-console"
-end
-
-group :production do
-  gem "pg", "~> 1.5"
 end
 
 group :test do
