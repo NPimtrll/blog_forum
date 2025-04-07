@@ -3,6 +3,7 @@ GIT
   revision: e8d0afe2773b9eb6a23c39e9e437f6fc0fc7c733
   specs:
     net-pop (0.1.2)
+      net-protocol
 
 GIT
   remote: https://github.com/ruby/net-protocol.git
@@ -207,7 +208,8 @@ GEM
     net-imap (0.4.19)
       date
       net-protocol
-    net-smtp (0.4.0.1)
+    net-smtp (0.5.1)
+      net-protocol
     nio4r (2.7.4)
     nokogiri (1.18.7-aarch64-linux-gnu)
       racc (~> 1.4)
