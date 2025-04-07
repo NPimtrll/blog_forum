@@ -18,13 +18,6 @@ ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 ENV RAILS_LOG_TO_STDOUT=true
 
-# Set PostgreSQL environment variables for Render
-ENV POSTGRES_DB=blog_forum_production
-ENV POSTGRES_USER=blog_forum
-ENV POSTGRES_HOST=dpg-cvpti66uk2gs73e8qhig-a.oregon-postgres.render.com
-ENV POSTGRES_PORT=5432
-# Note: Password should be set through Render's environment variables
-
 # Install system dependencies
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
