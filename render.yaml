@@ -25,7 +25,6 @@ services:
     region: oregon
     dockerContext: .
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /up
     autoDeploy: true
 
 version: "1"
