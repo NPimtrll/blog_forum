@@ -1,18 +1,18 @@
 # Exported from Render on 2025-04-08T02:12:34Z
 services:
-  - type: web
-    name: blog_forum
-    runtime: docker
-    repo: https://github.com/NPimtrll/blog_forum
-    plan: free
-    envVars:
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: WEB_CONCURRENCY
-        value: "2"
-    region: oregon
-    dockerContext: .
-    dockerfilePath: ./Dockerfile
-    healthCheckPath: /health
+- type: web
+  name: blog_forum
+  runtime: docker
+  repo: https://github.com/NPimtrll/blog_forum
+  plan: free
+  envVars:
+    - key: RAILS_MASTER_KEY
+      sync: false
+    - key: WEB_CONCURRENCY
+      value: false
+  region: oregon
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+  healthCheckPath: /health
 
 version: "1"
