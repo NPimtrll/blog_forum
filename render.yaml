@@ -9,16 +9,10 @@ services:
       - key: RAILS_MASTER_KEY
         sync: false
       - key: WEB_CONCURRENCY
-        sync: false
-      - key: RAILS_LOG_TO_STDOUT
-        value: true
-      - key: RAILS_SERVE_STATIC_FILES
-        value: true
+        value: "2"
     region: oregon
     dockerContext: .
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
-    autoDeploy: true
-    buildCommand: ./bin/render-build.sh
-    startCommand: bundle exec puma -C config/puma.rb
+
 version: "1"
