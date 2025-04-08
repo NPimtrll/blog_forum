@@ -1,24 +1,16 @@
+# Exported from Render on 2025-04-08T02:12:34Z
 services:
   - type: web
-    name: blog-forum
-    env: ruby
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
+    name: blog_forum
+    runtime: docker
+    repo: https://github.com/NPimtrll/blog_forum
+    plan: free
     envVars:
       - key: RAILS_MASTER_KEY
         sync: false
-      - key: RAILS_ENV
-        value: production
-      - key: RAILS_SERVE_STATIC_FILES
-        value: true
-      - key: DATABASE_URL
-        fromDatabase:
-          name: blog-forum-db
-          property: connectionString
-    plan: free
-
-databases:
-  - name: blog-forum-db
-    databaseName: blog_forum_production
-    user: blog_forum
-    plan: free
+      - key: WEB_CONCURRENCY
+        sync: false
+    region: oregon
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+version: "1"
