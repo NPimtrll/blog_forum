@@ -9,7 +9,6 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.3.3
-ARG RAILS_MASTER_KEY
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
@@ -29,6 +28,7 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
+ENV RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
 # Install packages needed to build gems
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config && \
@@ -47,7 +47,8 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE=dummy RAILS_MASTER_KEY=${RAILS_MASTER_KEY} RAILS_ENV=production NODE_ENV=production ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE=dummy ./bin/rails assets:precompile
+
 
 
 
