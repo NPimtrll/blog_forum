@@ -1,18 +1,31 @@
 # Exported from Render on 2025-04-08T02:12:34Z
 services:
-- type: web
-  name: blog_forum
-  runtime: docker
-  repo: https://github.com/NPimtrll/blog_forum
-  plan: free
-  envVars:
-    - key: RAILS_MASTER_KEY
-      sync: false
-    - key: WEB_CONCURRENCY
-      value: false
-  region: oregon
-  dockerContext: .
-  dockerfilePath: ./Dockerfile
-  healthCheckPath: /health
+  - type: web
+    name: blog_forum
+    runtime: docker
+    repo: https://github.com/NPimtrll/blog_forum
+    plan: free
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: POSTGRES_HOST
+        sync: false
+      - key: POSTGRES_USER
+        sync: false
+      - key: POSTGRES_PASSWORD
+        sync: false
+      - key: POSTGRES_PORT
+        value: "5432"
+      - key: WEB_CONCURRENCY
+        value: "2"
+    region: oregon
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
 
 version: "1"
