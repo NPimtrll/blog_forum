@@ -37,6 +37,9 @@ gem "solid_cable"
 # Database
 gem "pg", "~> 1.5"
 
+# Cloud Storage
+gem "cloudinary", "~> 1.25"
+
 # Windows compatibility
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
