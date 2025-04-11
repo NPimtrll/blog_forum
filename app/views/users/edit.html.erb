@@ -3,28 +3,29 @@
 
     <%= form_with(model: @user, local: true) do |form| %>
       <!-- Profile Picture -->
-      <div class="bg-white rounded-lg shadow-sm p-6 mb-6" x-data="{ avatarUrl: '<%= @user.avatar.attached? ? url_for(@user.avatar) : '' %>' }">
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">Profile Picture</h2>
         <div class="flex items-start space-x-4">
           <div class="relative">
-            <template x-if="avatarUrl">
-              <img :src="avatarUrl" class="w-16 h-16 rounded-full object-cover" id="avatar-preview">
-            </template>
-            <template x-if="!avatarUrl">
-              <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
-                <span class="text-gray-400">No Photo</span>
-              </div>
-            </template>
+            <div id="avatar-preview" class="w-16 h-16 rounded-full overflow-hidden">
+              <% if @user.avatar.attached? %>
+                <%= image_tag @user.avatar, class: "w-full h-full object-cover" %>
+              <% else %>
+                <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                  <span class="text-gray-400">No Photo</span>
+                </div>
+              <% end %>
+            </div>
           </div>
           <div class="flex-1">
             <%= form.file_field :avatar, class: "hidden", id: "avatar-upload", accept: "image/jpeg,image/png", 
-              onchange: "let reader = new FileReader(); reader.onload = e => { document.querySelector('[x-data]').__x.$data.avatarUrl = e.target.result }; reader.readAsDataURL(this.files[0]);" %>
+              onchange: "previewAvatar(this)" %>
             <div class="flex space-x-2">
               <button type="button" onclick="document.getElementById('avatar-upload').click()" 
                 class="bg-blue-500 text-white px-4 py-2 text-sm font-medium rounded hover:bg-blue-600 transition-colors">
                 Upload New Photo
               </button>
-              <button type="button" @click="avatarUrl = ''" 
+              <button type="button" onclick="removeAvatar()" 
                 class="border border-gray-300 text-gray-700 px-4 py-2 text-sm font-medium rounded hover:bg-gray-50 transition-colors">
                 Remove
               </button>
@@ -148,4 +149,28 @@
       </div>
     <% end %>
   </div>
+
+  <script>
+    function previewAvatar(input) {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById('avatar-preview');
+          preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover">`;
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function removeAvatar() {
+      const preview = document.getElementById('avatar-preview');
+      preview.innerHTML = `
+        <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+          <span class="text-gray-400">No Photo</span>
+        </div>
+      `;
+      document.getElementById('avatar-upload').value = '';
+    }
+  </script>
 
