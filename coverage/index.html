@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.13.1/application.js' type='text/javascript'></script>
     <link href='./assets/0.13.1/application.css' media='screen, projection, print' rel='stylesheet' type='text/css' />
-    <link rel="icon" type="image/png" href="./assets/0.13.1/favicon_yellow.png" />
+    <link rel="icon" type="image/png" href="./assets/0.13.1/favicon_red.png" />
   </head>
 
   <body>
@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-11T19:17:38+07:00">2025-04-11T19:17:38+07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-11T22:41:33+07:00">2025-04-11T22:41:33+07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -21,15 +21,15 @@
   <h2>
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
-      <span class="yellow">
-  80.58%
+      <span class="red">
+  77.57%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         4.06
+         3.91
        </span>
     </span> hits/line
     )
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>412</b> relevant lines,
+    <b>428</b> relevant lines,
     <span class="green"><b>332</b> lines covered</span> and
-    <span class="red"><b>80</b> lines missed. </span>
-    (<span class="yellow">
-  80.58%
+    <span class="red"><b>96</b> lines missed. </span>
+    (<span class="red">
+  77.57%
 </span>
 )
   </div>
@@ -82,11 +82,11 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#81bbca94138ab44b787adb76175e46430d6f9f54" class="src_link" title="app/channels/application_cable/connection.rb">app/channels/application_cable/connection.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">1</td>
+            <td class="red strong cell--number t-file__coverage">0.00 %</td>
+            <td class="cell--number">19</td>
+            <td class="cell--number">16</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">0</td>
+            <td class="cell--number">16</td>
             <td class="cell--number">0.00</td>
             
           </tr>
@@ -709,9 +709,9 @@
   </div>
 
   <div class="t-line-summary">
-    <b>11</b> relevant lines,
+    <b>27</b> relevant lines,
     <span class="green"><b>0</b> lines covered</span> and
-    <span class="red"><b>11</b> lines missed. </span>
+    <span class="red"><b>27</b> lines missed. </span>
     (<span class="red">
   0.0%
 </span>
@@ -749,11 +749,11 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#81bbca94138ab44b787adb76175e46430d6f9f54" class="src_link" title="app/channels/application_cable/connection.rb">app/channels/application_cable/connection.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">1</td>
+            <td class="red strong cell--number t-file__coverage">0.00 %</td>
+            <td class="cell--number">19</td>
+            <td class="cell--number">16</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">0</td>
+            <td class="cell--number">16</td>
             <td class="cell--number">0.00</td>
             
           </tr>
@@ -1403,8 +1403,8 @@
   <div class="header">
     <h3>app/channels/application_cable/connection.rb</h3>
     <h4>
-      <span class="green">
-  100.0%
+      <span class="red">
+  0.0%
 </span>
 
       lines covered
@@ -1413,9 +1413,9 @@
     
 
     <div class="t-line-summary">
-      <b>0</b> relevant lines.
+      <b>16</b> relevant lines.
       <span class="green"><b>0</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <span class="red"><b>16</b> lines missed.</span>
     </div>
 
     
@@ -1426,12 +1426,192 @@
     <ol>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="1">
+          <li class="missed" data-hits="0" data-linenumber="1">
+            
+
+            
+
+            <code class="ruby">module ApplicationCable</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="2">
+            
+
+            
+
+            <code class="ruby">  class Connection &lt; ActionCable::Connection::Base</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="3">
+            
+
+            
+
+            <code class="ruby">    identified_by :current_user</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="4">
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="5">
+            
+
+            
+
+            <code class="ruby">    def connect</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="6">
+            
+
+            
+
+            <code class="ruby">      self.current_user = find_verified_user</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="7">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="8">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="9">
+            
+
+            
+
+            <code class="ruby">    private</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="10">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="11">
+            
+
+            
+
+            <code class="ruby">    def find_verified_user</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="12">
+            
+
+            
+
+            <code class="ruby">      if verified_user = env[&quot;warden&quot;].user</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="13">
+            
+
+            
+
+            <code class="ruby">        verified_user</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="14">
+            
+
+            
+
+            <code class="ruby">      else</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="15">
+            
+
+            
+
+            <code class="ruby">        reject_unauthorized_connection</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="16">
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="17">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="18">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="19">
+            
+
+            
+
+            <code class="ruby">end</code>
           </li>
         </div>
       
