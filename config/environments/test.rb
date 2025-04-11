@@ -50,9 +50,4 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
-
-  # Handle autoload paths for Action Cable
-  config.autoload_paths += %W[#{config.root}/app/channels]
-  config.autoload_paths += %W[#{config.root}/app/channels/application_cable]
-  config.autoload_paths += %W[#{config.root}/app/channels/notification_channel]
 end
