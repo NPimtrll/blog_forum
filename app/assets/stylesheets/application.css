@@ -13,10 +13,9 @@
  *= require_tree .
  *= require_self
  *= require tinymce_content
+ *= require font-awesome-sprockets
+ *= require font-awesome
  */
-@import 'font-awesome-sprockets';
-@import 'font-awesome';
-
 
 /* Content Styles */
 .prose {
