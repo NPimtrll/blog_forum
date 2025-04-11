@@ -1,0 +1,15 @@
+<div class="px-4 py-3 hover:bg-gray-50 <%= 'bg-blue-50' unless notification.read %>">
+  <div class="flex items-start">
+    <div class="flex-1">
+      <p class="text-sm text-gray-900"><%= notification.message %></p>
+      <p class="text-xs text-gray-500 mt-1"><%= time_ago_in_words(notification.created_at) %> ago</p>
+    </div>
+    <% unless notification.read %>
+      <%= button_to mark_as_read_notification_path(notification), 
+          method: :patch, 
+          class: "text-gray-400 hover:text-gray-500" do %>
+        <i class="fi fi-rr-check text-sm"></i>
+      <% end %>
+    <% end %>
+  </div>
+</div> 

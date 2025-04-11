@@ -592,6 +592,43 @@
           null
         ]
       },
+      "/Users/stone4fimere/blog_forum/app/models/notification.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          3,
+          3,
+          null,
+          1,
+          null,
+          1,
+          5,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          11,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
       "/Users/stone4fimere/blog_forum/app/models/post_category.rb": {
         "lines": [
           1,
@@ -611,24 +648,57 @@
           1,
           1,
           1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          3,
-          3,
-          null,
           1,
           null,
           1,
-          null,
           1,
-          98,
+          1,
+          1,
           null,
           3,
+          3,
+          null,
           1,
+          null,
+          1,
+          null,
+          1,
+          109,
+          null,
+          3,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/stone4fimere/blog_forum/app/models/concerns/mentionable.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          2,
+          null,
+          null,
+          1,
+          null,
+          1,
+          115,
+          115,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
           null,
           null,
           null
@@ -674,15 +744,10 @@
           null,
           1,
           null,
-          null,
-          1,
           1,
           null,
-          1,
           null,
           1,
-          1,
-          null,
           1,
           null,
           1,
@@ -693,18 +758,25 @@
           1,
           null,
           1,
-          143,
-          143,
+          null,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          163,
+          163,
           null,
           null,
           1,
-          155,
+          175,
           1,
           null,
           null,
           null,
           1,
-          155,
+          175,
           0,
           null,
           null,
@@ -727,12 +799,13 @@
           1,
           1,
           1,
-          null,
-          1,
           1,
           null,
           1,
-          19,
+          1,
+          null,
+          1,
+          21,
           null,
           null
         ]
@@ -753,6 +826,59 @@
           1,
           null
         ]
+      },
+      "/Users/stone4fimere/blog_forum/app/channels/application_cable/channel.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/stone4fimere/blog_forum/app/channels/application_cable/connection.rb": {
+        "lines": [
+          null
+        ],
+        "branches": {}
+      },
+      "/Users/stone4fimere/blog_forum/app/channels/notification_channel.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0
+        ],
+        "branches": {}
+      },
+      "/Users/stone4fimere/blog_forum/app/controllers/notifications_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {}
       },
       "/Users/stone4fimere/blog_forum/app/jobs/application_job.rb": {
         "lines": [
@@ -776,6 +902,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1744360422
+    "timestamp": 1744373858
   }
 }

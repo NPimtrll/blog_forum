@@ -27,5 +27,13 @@ Rails.application.routes.draw do
   get "/search", to: "search#index", as: "search"
   get "/bookmarks", to: "bookmarks#index", as: "bookmarks"
 
+  resources :notifications, only: [ :index ] do
+    member do
+      patch :mark_as_read
+    end
+  end
+
+  mount ActionCable.server => "/cable"
+
   root "posts#index"
 end

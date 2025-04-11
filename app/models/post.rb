@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   belongs_to :user
   has_one_attached :cover_image
+  include Mentionable
 
   validates :title, presence: true
   validates :content, presence: true
