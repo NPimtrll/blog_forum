@@ -1,4 +1,7 @@
 <div class="w-full pb-10 pl-10 pr-10" data-testid="posts-index-container">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+  <% end %>
 
   <%= render 'posts/components/main_article', data: { testid: 'main-article' } %>
   
