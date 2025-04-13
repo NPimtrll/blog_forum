@@ -31,11 +31,13 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "animations", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body class="bg-gray-100">
     <%= render "components/navbar" %>
+    <%= render "shared/flash" %>
     <main class="mt-28 px-5">
       <%= yield %>
     </main>

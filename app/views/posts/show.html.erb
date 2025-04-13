@@ -19,10 +19,6 @@
     <% end %>
   </div>
 
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
   <h1 class="text-4xl font-bold mb-2"><%= @post.title %></h1>
 
   <div class="flex items-center space-x-3 mb-6">
@@ -44,8 +40,6 @@
     <span class="text-gray-300">•</span>
     <time class="text-gray-500 text-sm"><%= @post.created_at.strftime("%B %d, %Y") %></time>
   </div>
-
-
 
   <div class="border-t border-gray-200 my-6"></div>
   <div class="prose mb-8">
