@@ -1,5 +1,5 @@
 <div class="flex flex-col shadow-lg rounded-lg" data-testid="article-card-<%= post.id %>">
-  <div class="mb-4 rounded-lg overflow-hidden" data-testid="article-image">
+  <div class="mb-4 rounded-t-lg overflow-hidden" data-testid="article-image">
     <% if post.cover_image.attached? %>
       <%= link_to post_path(post), data: { testid: "article-link-#{post.id}" } do %>
         <%= image_tag post.cover_image, class: "w-full h-48 object-cover", alt: "Cover Image for #{post.title}", data: { testid: "article-cover-image-#{post.id}" } %>
