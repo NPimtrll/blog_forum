@@ -1,4 +1,4 @@
-<%= form_with(model: post, class: "max-w-4xl mx-auto bg-white shadow-sm rounded-lg p-6", local: true, html: { multipart: true }) do |form| %>
+<%= form_with(model: post, class: "max-w-4xl mx-auto bg-white shadow-sm rounded-lg p-6", local: true, html: { multipart: true, onsubmit: "return validateForm(event)" }) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3" data-testid="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -81,7 +81,7 @@
     x-init="console.log(tags)"
     data-testid="tags_section"
   >
-    <%= form.label :tags, "Tags*", class: "block text-sm font-medium mb-2", data: { testid: "tags_label" } %>
+    <%= form.label :tags, "Tags", class: "block text-sm font-medium mb-2", data: { testid: "tags_label" } %>
     
     <div class="relative">
       <input type="text" 
@@ -131,6 +131,67 @@
 <%= tinymce %>
 
 <script>
+  function validateForm(event) {
+    const title = document.querySelector('[data-testid="title_input"]').value.trim();
+    const category = document.querySelector('input[name="post[category_id]"]:checked');
+    const content = document.querySelector('[data-testid="content_input"]').value.trim();
+    
+    let isValid = true;
+    let errorMessage = '';
+
+    if (!title) {
+      errorMessage += 'Article Title is required.\n';
+      isValid = false;
+    }
+
+    if (!category) {
+      errorMessage += 'Please select a Category.\n';
+      isValid = false;
+    }
+
+    if (!content) {
+      errorMessage += 'Content is required.\n';
+      isValid = false;
+    }
+
+    if (!isValid) {
+      event.preventDefault();
+      // Create flash message
+      const flashContainer = document.createElement('div');
+      flashContainer.className = 'fixed bottom-6 right-6 z-50 animate-fade-out';
+      flashContainer.style.animationDelay = '3s';
+      
+      const flashContent = `
+        <div class="bg-white rounded-lg shadow-lg px-6 py-4 max-w-xl border-l-4 border-red-500">
+          <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0">
+              <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <p class="text-base font-medium text-gray-900">
+                ${errorMessage}
+              </p>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      flashContainer.innerHTML = flashContent;
+      document.body.appendChild(flashContainer);
+      
+      // Remove flash message after animation
+      setTimeout(() => {
+        flashContainer.remove();
+      }, 4000);
+      
+      return false;
+    }
+
+    return true;
+  }
+
   function handleImagePreview(input) {
     const file = input.files[0];
     if (file) {
