@@ -12,11 +12,11 @@ class BookmarksController < ApplicationController
 
     if @bookmark.save
       respond_to do |format|
-        format.html { redirect_to @post, notice: "บันทึกโพสต์เรียบร้อยแล้ว" }
+        format.html { redirect_to @post, notice: "Post bookmarked successfully" }
       end
     else
       respond_to do |format|
-        format.html { redirect_to @post, alert: "ไม่สามารถบันทึกโพสต์ได้" }
+        format.html { redirect_to @post, alert: "Failed to bookmark post" }
       end
     end
   end
@@ -26,7 +26,7 @@ class BookmarksController < ApplicationController
     @bookmark.destroy
 
     respond_to do |format|
-      format.html { redirect_to @post, notice: "ลบการบันทึกโพสต์เรียบร้อยแล้ว" }
+      format.html { redirect_to @post, notice: "Post unbookmarked successfully" }
     end
   end
 

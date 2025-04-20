@@ -32,7 +32,7 @@ RSpec.describe BookmarksController, type: :controller do
 
       it 'sets success message' do
         post :create, params: { post_id: post_obj.id }
-        expect(flash[:notice]).to eq("บันทึกโพสต์เรียบร้อยแล้ว")
+        expect(flash[:notice]).to eq("Post bookmarked successfully")
       end
     end
   end
@@ -66,7 +66,7 @@ RSpec.describe BookmarksController, type: :controller do
 
       it 'sets success message' do
         delete :destroy, params: { post_id: post_obj.id, id: bookmark.id }
-        expect(flash[:notice]).to eq("ลบการบันทึกโพสต์เรียบร้อยแล้ว")
+        expect(flash[:notice]).to eq("Post unbookmarked successfully")
       end
     end
   end

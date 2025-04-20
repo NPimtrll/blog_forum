@@ -18,7 +18,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params)
 
     if @category.save
-      redirect_to @category, notice: "สร้างหมวดหมู่สำเร็จ"
+      redirect_to @category, notice: "Category created successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to @category, notice: "อัปเดตหมวดหมู่สำเร็จ"
+      redirect_to @category, notice: "Category updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,7 +37,7 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to categories_url, notice: "ลบหมวดหมู่สำเร็จ"
+    redirect_to categories_url, notice: "Category was successfully destroyed"
   end
 
   private

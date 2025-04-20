@@ -1,9 +1,9 @@
 <div class="container mx-auto px-5 py-8">
-  <h1 class="text-2xl font-bold mb-6">ผลการค้นหา: <%= @query %></h1>
+  <h1 class="text-2xl font-bold mb-6">Search Results: <%= @query %></h1>
 
   <% if @posts.any? %>
     <div class="mb-8">
-      <h2 class="text-xl font-semibold mb-4">บทความที่เกี่ยวข้อง</h2>
+      <h2 class="text-xl font-semibold mb-4">Related Articles</h2>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <% @posts.each do |post| %>
           <%= render "posts/components/article_card", post: post %>
@@ -14,7 +14,7 @@
 
   <% if @category_posts.any? %>
     <div class="mb-8">
-      <h2 class="text-xl font-semibold mb-4">บทความจากหมวดหมู่ที่เกี่ยวข้อง</h2>
+      <h2 class="text-xl font-semibold mb-4">Articles from Related Categories</h2>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <% @category_posts.each do |post| %>
           <%= render "posts/components/article_card", post: post %>
@@ -25,7 +25,7 @@
 
   <% if @categories.any? %>
     <div>
-      <h2 class="text-xl font-semibold mb-4">หมวดหมู่ที่เกี่ยวข้อง</h2>
+      <h2 class="text-xl font-semibold mb-4">Related Categories</h2>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <% @categories.each do |tag| %>
           <div class="bg-white rounded-lg shadow-md p-4">
@@ -40,7 +40,7 @@
 
   <% if @posts.empty? && @category_posts.empty? && @categories.empty? %>
     <div class="text-center py-8">
-      <p class="text-gray-500">ไม่พบผลลัพธ์ที่เกี่ยวข้อง</p>
+      <p class="text-gray-500">No results found</p>
     </div>
   <% end %>
 </div> 
