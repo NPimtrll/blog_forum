@@ -1,7 +1,15 @@
 <div class="px-4 py-3 hover:bg-gray-50 <%= 'bg-blue-50' unless notification.read %>">
   <div class="flex items-start">
     <div class="flex-1">
-      <p class="text-sm text-gray-900"><%= notification.message %></p>
+      <p class="text-sm text-gray-900">
+        <% if notification.notifiable_type == "Comment" && notification.notifiable.present? %>
+          <%= link_to notification.message, 
+              post_path(notification.notifiable.post, anchor: "comment-#{notification.notifiable.id}"),
+              class: "hover:text-blue-600" %>
+        <% else %>
+          <%= notification.message %>
+        <% end %>
+      </p>
       <p class="text-xs text-gray-500 mt-1"><%= time_ago_in_words(notification.created_at) %> ago</p>
     </div>
     <% unless notification.read %>

@@ -1,4 +1,4 @@
-<div id="<%= dom_id comment %>" class="my-5 relative" x-data="{ showReplyForm: false }">
+<div id="comment-<%= comment.id %>" class="my-5 relative" x-data="{ showReplyForm: false }">
   <div class="flex space-x-4">
     <div class="relative">
       <% if comment.user.avatar.attached? %>
