@@ -10,11 +10,11 @@
                 <div class="flex items-center">
                     <% if user_signed_in? %>
                         <%= link_to user_path(user), data: { testid: "author-link-#{user.id}" } do %>
-                            <%= image_tag user.avatar.attached? ? user.avatar : "article-default.png", class: "w-12 h-12 rounded-full mr-3 object-cover", data: { testid: "author-avatar-#{user.id}" } %>
+                            <%= image_tag user.avatar.attached? ? user.avatar : "default-avatar.png", class: "w-12 h-12 rounded-full mr-3 object-cover", data: { testid: "author-avatar-#{user.id}" } %>
                         <% end %>
                     <% else %>
                         <%= link_to new_user_session_path, data: { testid: "login-link-#{user.id}" } do %>
-                            <%= image_tag user.avatar.attached? ? user.avatar : "article-default.png", class: "w-12 h-12 rounded-full mr-3 object-cover", data: { testid: "author-avatar-#{user.id}" } %>
+                            <%= image_tag user.avatar.attached? ? user.avatar : "default-avatar.png", class: "w-12 h-12 rounded-full mr-3 object-cover", data: { testid: "author-avatar-#{user.id}" } %>
                         <% end %>
                     <% end %>
                     <div data-testid="author-name-<%= user.id %>">
