@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_post
   before_action :set_comment, only: %i[edit update destroy]
   before_action :authorize_comment_owner, only: %i[edit update destroy]
+  before_action :store_return_to, only: [ :create, :update, :destroy ]
 
   # GET /comments or /comments.json
   def index
@@ -31,31 +32,36 @@ class CommentsController < ApplicationController
     @comment.parent_id = params[:parent_id] if params[:parent_id].present?
 
     if @comment.save
-      redirect_back fallback_location: @post, notice: "Comment was successfully created."
+      redirect_to(session.delete(:return_to) || @post, notice: "Comment was successfully created.")
     else
-      redirect_back fallback_location: @post, alert: "Failed to add comment."
+      redirect_to(session.delete(:return_to) || @post, alert: "Failed to add comment.")
     end
   end
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
     if @comment.update(comment_params)
-      redirect_back fallback_location: @post, notice: "Comment was successfully updated."
+      redirect_to(session.delete(:return_to) || @post, notice: "Comment was successfully updated.")
     else
-      redirect_back fallback_location: @post, alert: "Failed to update comment."
+      redirect_to(session.delete(:return_to) || @post, alert: "Failed to update comment.")
     end
   end
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
     @comment.destroy!
-    redirect_back fallback_location: post_path(@post), notice: "Comment was successfully destroyed.", status: :see_other
+    redirect_to(session.delete(:return_to) || post_path(@post), notice: "Comment was successfully destroyed.", status: :see_other)
   end
 
   private
     def set_post
       @post = Post.find(params[:post_id])
     end
+
+    def store_return_to
+      session[:return_to] = request.referer if request.referer.present? && !request.referer.include?("/comments")
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find_by(id: params[:id], post_id: @post.id)
