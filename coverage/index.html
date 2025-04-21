@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-21T09:28:42+07:00">2025-04-21T09:28:42+07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-21T09:48:58+07:00">2025-04-21T09:48:58+07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -3386,7 +3386,7 @@
 
             
 
-            <code class="ruby">      redirect_to @post, notice: &quot;Comment was successfully created.&quot;</code>
+            <code class="ruby">      redirect_back fallback_location: @post, notice: &quot;Comment was successfully created.&quot;</code>
           </li>
         </div>
       
@@ -3408,7 +3408,7 @@
 
             
 
-            <code class="ruby">      redirect_to @post, alert: &quot;Failed to add comment.&quot;</code>
+            <code class="ruby">      redirect_back fallback_location: @post, alert: &quot;Failed to add comment.&quot;</code>
           </li>
         </div>
       
@@ -3484,7 +3484,7 @@
 
             
 
-            <code class="ruby">      redirect_to @post, notice: &quot;Comment was successfully updated.&quot;</code>
+            <code class="ruby">      redirect_back fallback_location: @post, notice: &quot;Comment was successfully updated.&quot;</code>
           </li>
         </div>
       
@@ -3506,7 +3506,7 @@
 
             
 
-            <code class="ruby">      redirect_to @post, alert: &quot;Failed to update comment.&quot;</code>
+            <code class="ruby">      redirect_back fallback_location: @post, alert: &quot;Failed to update comment.&quot;</code>
           </li>
         </div>
       
@@ -3582,7 +3582,7 @@
 
             
 
-            <code class="ruby">    redirect_to post_path(@post), notice: &quot;Comment was successfully destroyed.&quot;, status: :see_other</code>
+            <code class="ruby">    redirect_back fallback_location: post_path(@post), notice: &quot;Comment was successfully destroyed.&quot;, status: :see_other</code>
           </li>
         </div>
       
