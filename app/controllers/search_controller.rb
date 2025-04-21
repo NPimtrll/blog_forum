@@ -4,18 +4,18 @@ class SearchController < ApplicationController
 
     if @query.present?
       @posts = Post.where("LOWER(title) LIKE ? OR LOWER(content) LIKE ?",
-                         "%#{@query.downcase}%",
-                         "%#{@query.downcase}%")
+                         "#{@query.downcase}%",
+                         "#{@query.downcase}%")
                    .includes(:user, :tags)
                    .limit(5)
 
       @categories = Tag.where("LOWER(name) LIKE ?",
-                            "%#{@query.downcase}%")
+                            "#{@query.downcase}%")
                       .limit(5)
 
       @category_posts = Post.joins(:category)
                           .where("LOWER(categories.name) LIKE ?",
-                                "%#{@query.downcase}%")
+                                "#{@query.downcase}%")
                           .includes(:user, :tags, :category)
                           .limit(5)
     else

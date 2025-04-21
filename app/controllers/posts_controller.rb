@@ -6,7 +6,9 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     if params[:query].present?
-      @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+      @posts = Post.where("LOWER(title) LIKE ? OR LOWER(content) LIKE ?",
+                         "#{params[:query].downcase}%",
+                         "#{params[:query].downcase}%")
     else
       @posts = Post.includes(:user, :comments, :likes, :category).order(created_at: :desc)
     end
@@ -77,11 +79,14 @@ class PostsController < ApplicationController
 
   def search
     query = params[:query].strip
-    # เปลี่ยนจาก ILIKE เป็น LIKE
-    @posts = Post.joins(:category).where("title LIKE ? OR content LIKE ? OR categories.name LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%").limit(5)
+    @posts = Post.joins(:category)
+                .where("LOWER(title) LIKE ? OR LOWER(content) LIKE ? OR LOWER(categories.name) LIKE ?",
+                      "#{query.downcase}%",
+                      "#{query.downcase}%",
+                      "#{query.downcase}%")
+                .limit(5)
     render json: @posts.map { |post| { id: post.id, title: post.title } }
   end
-
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
