@@ -32,25 +32,25 @@ class CommentsController < ApplicationController
     @comment.parent_id = params[:parent_id] if params[:parent_id].present?
 
     if @comment.save
-      redirect_to(session.delete(:return_to) || @post, notice: "Comment was successfully created.")
+      redirect_to @post, notice: "Comment was successfully created."
     else
-      redirect_to(session.delete(:return_to) || @post, alert: "Failed to add comment.")
+      redirect_to @post, alert: "Failed to add comment."
     end
   end
 
   # PATCH/PUT /comments/1 or /comments/1.json
   def update
     if @comment.update(comment_params)
-      redirect_to(session.delete(:return_to) || @post, notice: "Comment was successfully updated.")
+      redirect_to @post, notice: "Comment was successfully updated."
     else
-      redirect_to(session.delete(:return_to) || @post, alert: "Failed to update comment.")
+      redirect_to @post, alert: "Failed to update comment."
     end
   end
 
   # DELETE /comments/1 or /comments/1.json
   def destroy
     @comment.destroy!
-    redirect_to(session.delete(:return_to) || post_path(@post), notice: "Comment was successfully destroyed.", status: :see_other)
+    redirect_to @post, notice: "Comment was successfully destroyed.", status: :see_other
   end
 
   private
