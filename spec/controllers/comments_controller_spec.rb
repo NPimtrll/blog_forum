@@ -29,7 +29,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'redirects to post page' do
         post :create, params: { post_id: post_obj.id, comment: valid_attributes }
-        expect(response).to redirect_to(post_obj)
+        expect(response).to redirect_to("#{post_path(post_obj)}#comment-#{Comment.last.id}")
       end
 
       it 'fails to create with invalid attributes' do

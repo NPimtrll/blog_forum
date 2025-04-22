@@ -66,3 +66,5 @@ group :test do
   gem "factory_bot_rails"
   gem "simplecov", require: false, git: "https://github.com/simplecov-ruby/simplecov"
 end
+
+gem "redis", "~> 5.4"

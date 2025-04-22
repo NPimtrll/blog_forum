@@ -27,10 +27,7 @@
           <% end %>
         </div>
         <p class="text-gray-700">
-          <% if comment.parent_id.present? %>
-            <span class="text-blue-600">@<%= comment.parent.user.username %></span>
-          <% end %>
-          <%= comment.content %>
+          <%= format_mentions(comment.content) %>
         </p>
         <% if user_signed_in? && (!comment.parent_id.present? || comment.parent.parent_id.nil?) %>
           <div class="mt-2">

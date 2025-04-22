@@ -32,9 +32,9 @@ class CommentsController < ApplicationController
     @comment.parent_id = params[:parent_id] if params[:parent_id].present?
 
     if @comment.save
-      redirect_to @post, notice: "Comment was successfully created."
+      redirect_to post_path(@post, anchor: "comment-#{@comment.id}"), notice: "Comment was successfully created."
     else
-      redirect_to @post, alert: "Failed to add comment."
+      redirect_to post_path(@post), alert: "Failed to add comment."
     end
   end
 
