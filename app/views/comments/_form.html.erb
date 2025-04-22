@@ -1,4 +1,4 @@
-<%= form_with(model: [post, comment], class: "space-y-4") do |form| %>
+<%= form_with(model: [post, comment], id: "comment_form", local: true) do |form| %>
   <% if comment.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -18,13 +18,16 @@
       <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full" %>
     <% end %>
     <div class="flex-grow">
-      <%= form.text_area :content, rows: 3, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", placeholder: "Write a comment..." %>
+      <%= form.text_area :content, rows: 3, 
+          class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", 
+          placeholder: defined?(parent_id) ? "Write a reply..." : "Write a comment...",
+          value: defined?(parent_id) ? "@#{Comment.find(parent_id).user.username} " : nil %>
     </div>
   </div>
 
-  <% if params[:parent_id].present? %>
-    <%= form.hidden_field :parent_id, value: params[:parent_id] %>
-  <% end %>
+  <%= form.hidden_field :parent_id, value: parent_id if defined?(parent_id) %>
 
-  <%= form.submit "Post Comment", class: "mt-3 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+  <div class="flex justify-end space-x-2 mt-4">
+    <%= form.submit defined?(parent_id) ? "Post Reply" : "Post Comment", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+  </div>
 <% end %>

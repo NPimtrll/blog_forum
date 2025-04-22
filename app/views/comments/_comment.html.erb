@@ -41,30 +41,7 @@
       <% if user_signed_in? && (!comment.parent_id.present? || comment.parent.parent_id.nil?) %>
         <div x-show="showReplyForm" x-transition class="mt-4 ml-8">
           <div class="bg-white p-4 rounded-lg shadow">
-            <%= form_with(model: [post, Comment.new], class: "space-y-4") do |form| %>
-              <div class="flex space-x-4">
-                <% if current_user&.avatar&.attached? %>
-                  <%= image_tag url_for(current_user.avatar), class: "w-10 h-10 rounded-full" %>
-                <% else %>
-                  <%= image_tag "default-avatar.png", class: "w-10 h-10 rounded-full" %>
-                <% end %>
-                <div class="flex-grow">
-                  <%= form.text_area :content, rows: 3, 
-                      class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500", 
-                      placeholder: "Write a reply...",
-                      value: "@#{comment.user.username} " %>
-                </div>
-              </div>
-
-              <%= form.hidden_field :parent_id, value: comment.id %>
-
-              <div class="flex justify-end space-x-2">
-                <button type="button" @click="showReplyForm = false" class="px-4 py-2 text-gray-600 hover:text-gray-800">
-                  Cancel
-                </button>
-                <%= form.submit "Post Reply", class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
-              </div>
-            <% end %>
+            <%= render "comments/form", post: post, comment: Comment.new, parent_id: comment.id %>
           </div>
         </div>
       <% end %>
