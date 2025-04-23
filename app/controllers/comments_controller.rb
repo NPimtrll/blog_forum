@@ -31,10 +31,18 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     @comment.parent_id = params[:parent_id] if params[:parent_id].present?
 
-    if @comment.save
-      redirect_to post_path(@post, anchor: "comment-#{@comment.id}"), notice: "Comment was successfully created."
-    else
-      redirect_to post_path(@post), alert: "Failed to add comment."
+    begin
+      if @comment.save
+        redirect_to post_path(@post, anchor: "comment-#{@comment.id}"), notice: "Comment was successfully created.", status: :see_other
+      else
+        redirect_to post_path(@post), alert: "Failed to add comment.", status: :see_other
+      end
+    rescue Redis::CannotConnectError => e
+      Rails.logger.error "Redis connection error: #{e.message}"
+      redirect_to post_path(@post, anchor: "comment-#{@comment.id}"), notice: "Comment was successfully created.", status: :see_other
+    rescue => e
+      Rails.logger.error "Unexpected error: #{e.message}"
+      redirect_to post_path(@post), alert: "Failed to add comment.", status: :see_other
     end
   end
 
@@ -62,7 +70,6 @@ class CommentsController < ApplicationController
       session[:return_to] = request.referer if request.referer.present? && !request.referer.include?("/comments")
     end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_comment
       @comment = Comment.find_by(id: params[:id], post_id: @post.id)
       redirect_to @post, alert: "Comment not found" if @comment.nil?

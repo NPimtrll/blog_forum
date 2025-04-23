@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-23T02:12:11+07:00">2025-04-23T02:12:11+07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2025-04-23T09:39:20+07:00">2025-04-23T09:39:20+07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -22,14 +22,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="red">
-  79.59%
+  78.86%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.98
+         3.94
        </span>
     </span> hits/line
     )
@@ -42,11 +42,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>436</b> relevant lines,
+    <b>440</b> relevant lines,
     <span class="green"><b>347</b> lines covered</span> and
-    <span class="red"><b>89</b> lines missed. </span>
+    <span class="red"><b>93</b> lines missed. </span>
     (<span class="red">
-  79.59%
+  78.86%
 </span>
 )
   </div>
@@ -137,12 +137,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#17e4ae7fa2dd3b092a6e9feff50cc293bb3b2ff4" class="src_link" title="app/controllers/comments_controller.rb">app/controllers/comments_controller.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">92.50 %</td>
-            <td class="cell--number">78</td>
-            <td class="cell--number">40</td>
+            <td class="yellow strong cell--number t-file__coverage">84.09 %</td>
+            <td class="cell--number">85</td>
+            <td class="cell--number">44</td>
             <td class="cell--number">37</td>
-            <td class="cell--number">3</td>
-            <td class="cell--number">2.45</td>
+            <td class="cell--number">7</td>
+            <td class="cell--number">2.23</td>
             
           </tr>
         
@@ -499,14 +499,14 @@
     <span class="group_name">Controllers</span>
     (<span class="covered_percent">
       <span class="yellow">
-  83.96%
+  82.72%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.9
+         1.87
        </span>
     </span> hits/line
     )
@@ -519,11 +519,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>268</b> relevant lines,
+    <b>272</b> relevant lines,
     <span class="green"><b>225</b> lines covered</span> and
-    <span class="red"><b>43</b> lines missed. </span>
+    <span class="red"><b>47</b> lines missed. </span>
     (<span class="yellow">
-  83.96%
+  82.72%
 </span>
 )
   </div>
@@ -581,12 +581,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#17e4ae7fa2dd3b092a6e9feff50cc293bb3b2ff4" class="src_link" title="app/controllers/comments_controller.rb">app/controllers/comments_controller.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">92.50 %</td>
-            <td class="cell--number">78</td>
-            <td class="cell--number">40</td>
+            <td class="yellow strong cell--number t-file__coverage">84.09 %</td>
+            <td class="cell--number">85</td>
+            <td class="cell--number">44</td>
             <td class="cell--number">37</td>
-            <td class="cell--number">3</td>
-            <td class="cell--number">2.45</td>
+            <td class="cell--number">7</td>
+            <td class="cell--number">2.23</td>
             
           </tr>
         
@@ -2996,8 +2996,8 @@
   <div class="header">
     <h3>app/controllers/comments_controller.rb</h3>
     <h4>
-      <span class="green">
-  92.5%
+      <span class="yellow">
+  84.09%
 </span>
 
       lines covered
@@ -3006,9 +3006,9 @@
     
 
     <div class="t-line-summary">
-      <b>40</b> relevant lines.
+      <b>44</b> relevant lines.
       <span class="green"><b>37</b> lines covered</span> and
-      <span class="red"><b>3</b> lines missed.</span>
+      <span class="red"><b>7</b> lines missed.</span>
     </div>
 
     
@@ -3379,58 +3379,58 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="34">
+          <li class="never" data-hits="" data-linenumber="34">
+            
+
+            
+
+            <code class="ruby">    begin</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="3" data-linenumber="35">
             
               <span class="hits">3</span>
             
 
             
 
-            <code class="ruby">    if @comment.save</code>
+            <code class="ruby">      if @comment.save</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="35">
+          <li class="covered" data-hits="2" data-linenumber="36">
             
               <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">      redirect_to post_path(@post, anchor: &quot;comment-#{@comment.id}&quot;), notice: &quot;Comment was successfully created.&quot;</code>
+            <code class="ruby">        redirect_to post_path(@post, anchor: &quot;comment-#{@comment.id}&quot;), notice: &quot;Comment was successfully created.&quot;, status: :see_other</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="36">
+          <li class="never" data-hits="" data-linenumber="37">
             
 
             
 
-            <code class="ruby">    else</code>
+            <code class="ruby">      else</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="37">
+          <li class="covered" data-hits="1" data-linenumber="38">
             
               <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">      redirect_to post_path(@post), alert: &quot;Failed to add comment.&quot;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="38">
-            
-
-            
-
-            <code class="ruby">    end</code>
+            <code class="ruby">        redirect_to post_path(@post), alert: &quot;Failed to add comment.&quot;, status: :see_other</code>
           </li>
         </div>
       
@@ -3440,7 +3440,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -3450,12 +3450,92 @@
 
             
 
+            <code class="ruby">    rescue Redis::CannotConnectError =&gt; e</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="41">
+            
+
+            
+
+            <code class="ruby">      Rails.logger.error &quot;Redis connection error: #{e.message}&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="42">
+            
+
+            
+
+            <code class="ruby">      redirect_to post_path(@post, anchor: &quot;comment-#{@comment.id}&quot;), notice: &quot;Comment was successfully created.&quot;, status: :see_other</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="43">
+            
+
+            
+
+            <code class="ruby">    rescue =&gt; e</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="44">
+            
+
+            
+
+            <code class="ruby">      Rails.logger.error &quot;Unexpected error: #{e.message}&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="45">
+            
+
+            
+
+            <code class="ruby">      redirect_to post_path(@post), alert: &quot;Failed to add comment.&quot;, status: :see_other</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="46">
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="47">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="48">
+            
+
+            
+
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="41">
+          <li class="never" data-hits="" data-linenumber="49">
             
 
             
@@ -3465,7 +3545,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="42">
+          <li class="covered" data-hits="1" data-linenumber="50">
             
               <span class="hits">1</span>
             
@@ -3477,7 +3557,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="43">
+          <li class="covered" data-hits="3" data-linenumber="51">
             
               <span class="hits">3</span>
             
@@ -3489,7 +3569,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="44">
+          <li class="covered" data-hits="2" data-linenumber="52">
             
               <span class="hits">2</span>
             
@@ -3501,7 +3581,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="never" data-hits="" data-linenumber="53">
             
 
             
@@ -3511,7 +3591,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="46">
+          <li class="covered" data-hits="1" data-linenumber="54">
             
               <span class="hits">1</span>
             
@@ -3523,7 +3603,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="47">
+          <li class="never" data-hits="" data-linenumber="55">
             
 
             
@@ -3533,7 +3613,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="48">
+          <li class="never" data-hits="" data-linenumber="56">
             
 
             
@@ -3543,7 +3623,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="49">
+          <li class="never" data-hits="" data-linenumber="57">
             
 
             
@@ -3553,7 +3633,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="50">
+          <li class="never" data-hits="" data-linenumber="58">
             
 
             
@@ -3563,7 +3643,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="51">
+          <li class="covered" data-hits="1" data-linenumber="59">
             
               <span class="hits">1</span>
             
@@ -3575,7 +3655,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="52">
+          <li class="covered" data-hits="2" data-linenumber="60">
             
               <span class="hits">2</span>
             
@@ -3587,7 +3667,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="53">
+          <li class="covered" data-hits="2" data-linenumber="61">
             
               <span class="hits">2</span>
             
@@ -3599,7 +3679,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="54">
+          <li class="never" data-hits="" data-linenumber="62">
             
 
             
@@ -3609,7 +3689,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="55">
+          <li class="never" data-hits="" data-linenumber="63">
             
 
             
@@ -3619,7 +3699,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="56">
+          <li class="covered" data-hits="1" data-linenumber="64">
             
               <span class="hits">1</span>
             
@@ -3631,7 +3711,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="57">
+          <li class="covered" data-hits="1" data-linenumber="65">
             
               <span class="hits">1</span>
             
@@ -3643,7 +3723,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="12" data-linenumber="58">
+          <li class="covered" data-hits="12" data-linenumber="66">
             
               <span class="hits">12</span>
             
@@ -3655,7 +3735,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="59">
+          <li class="never" data-hits="" data-linenumber="67">
             
 
             
@@ -3665,7 +3745,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="60">
+          <li class="never" data-hits="" data-linenumber="68">
             
 
             
@@ -3675,7 +3755,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="61">
+          <li class="covered" data-hits="1" data-linenumber="69">
             
               <span class="hits">1</span>
             
@@ -3687,7 +3767,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="8" data-linenumber="62">
+          <li class="covered" data-hits="8" data-linenumber="70">
             
               <span class="hits">8</span>
             
@@ -3699,7 +3779,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="63">
+          <li class="never" data-hits="" data-linenumber="71">
             
 
             
@@ -3709,7 +3789,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="64">
+          <li class="never" data-hits="" data-linenumber="72">
             
 
             
@@ -3719,17 +3799,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="65">
-            
-
-            
-
-            <code class="ruby">    # Use callbacks to share common setup or constraints between actions.</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="66">
+          <li class="covered" data-hits="1" data-linenumber="73">
             
               <span class="hits">1</span>
             
@@ -3741,7 +3811,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="67">
+          <li class="covered" data-hits="9" data-linenumber="74">
             
               <span class="hits">9</span>
             
@@ -3753,7 +3823,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="68">
+          <li class="covered" data-hits="9" data-linenumber="75">
             
               <span class="hits">9</span>
             
@@ -3765,7 +3835,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="69">
+          <li class="never" data-hits="" data-linenumber="76">
             
 
             
@@ -3775,7 +3845,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="70">
+          <li class="never" data-hits="" data-linenumber="77">
             
 
             
@@ -3785,7 +3855,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="71">
+          <li class="covered" data-hits="1" data-linenumber="78">
             
               <span class="hits">1</span>
             
@@ -3797,7 +3867,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="72">
+          <li class="covered" data-hits="9" data-linenumber="79">
             
               <span class="hits">9</span>
             
@@ -3809,7 +3879,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="73">
+          <li class="never" data-hits="" data-linenumber="80">
             
 
             
@@ -3819,7 +3889,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="74">
+          <li class="never" data-hits="" data-linenumber="81">
             
 
             
@@ -3829,7 +3899,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="75">
+          <li class="covered" data-hits="1" data-linenumber="82">
             
               <span class="hits">1</span>
             
@@ -3841,7 +3911,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="6" data-linenumber="76">
+          <li class="covered" data-hits="6" data-linenumber="83">
             
               <span class="hits">6</span>
             
@@ -3853,7 +3923,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="77">
+          <li class="never" data-hits="" data-linenumber="84">
             
 
             
@@ -3863,7 +3933,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="78">
+          <li class="never" data-hits="" data-linenumber="85">
             
 
             
