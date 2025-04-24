@@ -6,6 +6,10 @@
           <%= link_to notification.message, 
               post_path(notification.notifiable.post, anchor: "comment-#{notification.notifiable.id}"),
               class: "hover:text-blue-600" %>
+        <% elsif notification.notifiable_type == "Post" && notification.notifiable.present? %>
+          <%= link_to notification.message, 
+              post_path(notification.notifiable),
+              class: "hover:text-blue-600" %>
         <% else %>
           <%= notification.message %>
         <% end %>

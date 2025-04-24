@@ -1,11 +1,12 @@
 class Post < ApplicationRecord
+  belongs_to :user
+  belongs_to :category
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :bookmarks, dependent: :destroy
-  belongs_to :category
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
-  belongs_to :user
+  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarked_by, through: :bookmarks, source: :user
   has_one_attached :cover_image
   include Mentionable
 
@@ -19,6 +20,8 @@ class Post < ApplicationRecord
 
   validate :acceptable_cover_image
 
+  after_create :notify_followers
+
   private
 
   def acceptable_cover_image
@@ -26,6 +29,17 @@ class Post < ApplicationRecord
 
     unless cover_image.blob.content_type.in?(%w[image/jpeg image/png])
       errors.add(:cover_image, "ต้องเป็นไฟล์ PNG หรือ JPG เท่านั้น")
+    end
+  end
+
+  def notify_followers
+    user.followers.each do |follower|
+      Notification.create!(
+        user: follower,
+        notifiable: self,
+        message: "#{user.username} posted a new topic: #{title}",
+        read: false
+      )
     end
   end
 end
