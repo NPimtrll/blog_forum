@@ -27,7 +27,7 @@ gem "devise", "~> 4.9"
 gem "kaminari"
 
 # Rich text editor
-gem "tinymce-rails", "~> 6.8"
+gem "tinymce-rails", "~> 8.0"
 
 # Background jobs and caching
 gem "solid_cache"
