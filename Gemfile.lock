@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/ruby/net-imap.git
-  revision: 1a600a0b6ab61d8667ba5e226c1d0e2d7e113dc3
+  revision: b97b414039c1590ac261072544b9b9b45cf3e81c
   specs:
-    net-imap (0.5.6)
+    net-imap (0.5.11)
       date
       net-protocol
 
